@@ -4,5 +4,11 @@
     <string name="app_name">Eat</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="login_signIn">Sign In</string>
+    <string name="login_user_hint">Username:</string>
+    <string name="login_passwd_hint">Password:</string>
+    <string name="main_title">SmartCart</string>
+    <string name="login_skip">Skip</string>
 
 </resources>
