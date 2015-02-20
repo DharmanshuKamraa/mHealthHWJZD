@@ -8,8 +8,8 @@ from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = patterns('',
-    url(r'^$', TemplateView.as_view(template_name='base.html')),
-
+    url(r'^$', TemplateView.as_view(template_name='homepage.html')),
+	url(r'^analytics$', TemplateView.as_view(template_name='main_analytics.html')),
     # Examples:
     # url(r'^$', 'eat.views.home', name='home'),
     # url(r'^eat/', include('eat.foo.urls')),

@@ -1,1 +1,47 @@
 /*! project specific CSS goes here. */
+.bs-docs-header {
+	padding-top : 40px;
+	padding-bottom : 40px;
+	font-size : 24px;
+	text-align :left;
+	background-color : #6f5499;
+	color : #fff;
+}
+
+.bs-docs-header .container {
+	margin-left : auto;
+	margin-right : auto;
+	padding-left : 15px;
+	padding-right: 15px;
+}
+
+.bs-docs-header .container h1{
+	font-size : 60px;
+}
+
+.bs-docs-header .container p{
+/*	font-size : 60px;*/
+	font-weight: 300;
+	color :#cdbfe3;
+	font-family: 'Helvetica Neue';
+/*	text-shadow : 0 1px 0;*/
+}
+
+.no-style-link {
+	text-decoration : none;
+	color :#000;
+}
+
+.no-style-link:hover {
+	text-decoration : none;
+	color :#000;
+}
+.team-row {
+	text-align: center;
+}
+.analytics-chart {
+	text-align: center;
+	width : 75%;
+	height : 75%;
+/*	background-color : none;*/
+}

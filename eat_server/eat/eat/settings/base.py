@@ -3,7 +3,8 @@
 
 from os.path import abspath, basename, dirname, join, normpath
 from sys import path
-
+############ Set user model
+AUTH_USER_MODEL = 'core.User'
 
 ########## PATH CONFIGURATION
 # Absolute filesystem path to the Django project directory:
@@ -194,6 +195,7 @@ DJANGO_APPS = (
 
 # Apps specific for this project go here.
 LOCAL_APPS = (
+	'core',
 )
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
