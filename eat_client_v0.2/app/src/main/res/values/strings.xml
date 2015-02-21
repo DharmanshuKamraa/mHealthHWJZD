@@ -30,5 +30,10 @@
     
     <!-- Content Description -->
     <string name="desc_list_item_icon">Item Icon</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <!--Log in Activity Stings-->
+    <string name="btn_login_sign_in">LOGIN</string>
+    <string name="btn_login_sign_up">SIGN UP</string>
+    <string name="title_activity_sign_up">SignUp</string>
 
 </resources>
