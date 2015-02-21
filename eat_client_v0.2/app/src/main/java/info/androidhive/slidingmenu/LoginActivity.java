@@ -42,6 +42,8 @@ public class LoginActivity extends Activity {
 
     public void onLoginClicked(View v) {
         Log.i("TAG", "Login Clicked");
+        Intent intent = new Intent(this , MainActivity.class);
+        startActivity(intent);
     }
     public void onSignUpClicked(View v) {
         Log.i("TAG", "Login Clicked");
