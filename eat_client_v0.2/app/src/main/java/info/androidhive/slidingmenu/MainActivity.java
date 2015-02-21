@@ -182,7 +182,7 @@ public class MainActivity extends Activity {
 			fragment = new WhatsHotFragment();
 			break;
         case 6 :
-            fragment = new FoodItemFragment();
+            fragment = new HistoryFragment();
             break;
 
 		default:
