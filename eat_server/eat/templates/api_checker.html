@@ -1,0 +1,137 @@
+{% extends "base.html" %}
+
+{% block page_title %} Api Checker {% endblock %}
+{% block content %}
+
+<script type="text/javascript" charset="utf-8">
+	var calls = new Array();
+	calls = [
+		{
+			url : "users/register" ,
+			type : "POST" ,
+			data : {
+				username : "kamra" ,
+				password : "check" ,
+				first_name : "Sample" ,
+				last_name : "sample" ,
+				email : "sample@gmail.com" ,
+				lat : 20.0 ,
+				lon : 21.3 ,
+				type : "HOTEL" ,
+				tags : "sample , tags"
+			},
+			description : "Add a new user"
+		} ,
+	]
+</script>
+<div class="row">
+	<div class="col-md-5">
+			<form action="" method="post" id="ApiCheckAdminIndexForm">
+				<div class="input select">
+					<label for="ApiCheckAuthType">Auth Type</label><br>
+					<select name="data[ApiCheck][AuthType]" id="ApiCheckAuthType">
+							<option value="Token" selected="selected">TOKEN</option>
+							<option value="Facebook">Facebook</option>
+					</select>
+				</div>
+				<br>
+				<div class="input text">
+					<label for="ApiCheckToken">Token</label><br>
+					<input name="data[ApiCheck][Token]" value="e6f8bc3e3cf481b9b4785395e74d0937" type="text" id="ApiCheckToken"/>
+				</div>
+				<br>
+				<div class="input select">
+					<label for="ApiCheckUrl" >URL</label><br>
+					<select name="data[ApiCheck][url]" id="ApiCheckUrl"></select>
+				</div>
+				<br>
+				<div>
+					<input type="submit" value="Check Api" id="checkApi">
+				</div>
+
+				<br>
+
+				<div>
+					<label for="ApiCheckRequest">Request</label><br>
+					<textarea id="ApiCheckRequest" rows="6" cols="30" name="data[ApiCheck][request]"></textarea>
+				</div>
+			</form>
+	</div>
+	<div class="col-md-6">
+		<div>
+			<strong>Request</strong>
+			<pre id="request"></pre>
+			<strong>Response</strong>
+			<pre id="response"></pre>
+		</div>
+	</div>
+
+</div>
+
+<script>
+WEBROOT = "/";
+
+	$(document).ready(function(){
+		function setCall(select) {
+			var index = select.val();
+			call = calls[index];
+			var request = JSON.stringify(call, null , 1);
+			$('#ApiCheckRequest').val(request);
+			$('#request').html(request);
+
+		}
+
+		var select = $('#ApiCheckUrl');
+		if(select.prop) {
+			var options = select.prop('options')
+		} else {
+			var options = select.attr('options');
+		}
+		for (counter in calls) {
+			options[options.length] = new Option(calls[counter].url , counter);
+		}
+
+
+		setCall(select);
+
+		select.change(function() {
+			setCall(select);
+		});
+
+		$('#checkApi').click(function(e) {
+			// var index = $('#ApiCheckUrl').val();
+			// call = calls[index];
+			var call = eval("(" + $("#ApiCheckRequest").val()+")");
+			var url = '/api/' + call.url;
+
+			if (call.type == 'GET') {
+				var request = $.ajax({
+					url: url ,
+					type: "GET" ,
+					dataType: "json" ,
+					headers: {"api-key" : "bc66be" , "auth-type" : $('#ApiCheckAuthType').val(), "auth-token" : $('#ApiCheckToken').val()},
+				});
+			} else {
+				var request = $.ajax({
+					url: url ,
+					type: call.type ,
+					dataType: "json" ,
+					headers: {"api-key" : "bc66be" , "auth-type" : $('#ApiCheckAuthType').val() , "auth-token" : $('#ApiCheckToken').val()} ,
+															contentType: "application/json",
+					data : JSON.stringify(call.data) ,
+				});
+			}
+			request.success(function(msg) {
+				var obj = JSON.stringify(msg ,null , 1);
+				$('#response').html(obj);
+			});
+
+			request.error(function(msg) {
+				var obj = JSON.stringify(msg ,null , 1);
+				$('#response').html(obj);
+			});
+			return false;
+		});
+	});
+</script>
+{% endblock %}
