@@ -35,5 +35,6 @@
     <string name="btn_login_sign_in">LOGIN</string>
     <string name="btn_login_sign_up">SIGN UP</string>
     <string name="title_activity_sign_up">SignUp</string>
+    <string name="title_activity_signup">SignupActivity</string>
 
 </resources>

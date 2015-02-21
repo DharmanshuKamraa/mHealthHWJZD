@@ -1,27 +1,24 @@
 package info.androidhive.slidingmenu;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
 
-public class LoginActivity extends Activity {
+public class SignupActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_signup);
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-//        getMenuInflater().inflate(R.menu.menu_login, menu);
+        getMenuInflater().inflate(R.menu.menu_signup, menu);
         return true;
     }
 
@@ -38,14 +35,5 @@ public class LoginActivity extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    public void onLoginClicked(View v) {
-        Log.i("TAG", "Login Clicked");
-    }
-    public void onSignUpClicked(View v) {
-        Log.i("TAG", "Login Clicked");
-        Intent intent = new Intent(this , SignupActivity.class);
-        startActivity(intent);
     }
 }
