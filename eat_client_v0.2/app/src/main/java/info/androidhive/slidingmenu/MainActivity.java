@@ -164,22 +164,22 @@ public class MainActivity extends Activity {
 		Fragment fragment = null;
 		switch (position) {
 		case 0:
-			fragment = new HomeFragment();
+			fragment = new CartFragment();
 			break;
 		case 1:
-			fragment = new FindPeopleFragment();
+			fragment = new ExploreFragment();
 			break;
 		case 2:
-			fragment = new PhotosFragment();
+			fragment = new HistoryFragment();
 			break;
 		case 3:
-			fragment = new CommunityFragment();
+			fragment = new DiscountFragment();
 			break;
 		case 4:
-			fragment = new PagesFragment();
+			fragment = new LocationFragment();
 			break;
 		case 5:
-			fragment = new WhatsHotFragment();
+			fragment = new ProfileFragment();
 			break;
 
 		default:
