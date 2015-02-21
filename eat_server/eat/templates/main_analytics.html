@@ -1,0 +1,42 @@
+{% extends "analytics_base.html" %}
+{% load staticfiles %}
+{% block content %}
+	<div class="bs-docs-header" style="background: #4C4C4C; padding-right: 100px; padding-left: 140px;">
+		<div class="container" style="background: #4C4C4C" >
+			<h1 style="font-size: 64px;">Welcome to SmartCart analytics!</h1>
+			<p style= "color: white;">This is the place to explore your app usage and know your customer base. This is catereed to help you make the most use of our platform.</p>
+			<!-- <h1>&nbsp;</h1><h1>&nbsp;</h1><h1>&nbsp; (Insert picture of sign in screen?)</h1><h1>&nbsp;</h1> -->
+			<h1>&nbsp;</h1>
+			<!-- <p style= "color: white;">A CS 69/169 Project...</p> -->
+			<p>&nbsp;</p>
+		</div>
+	</div>
+	
+	<div class="container-fluid" style="padding-right: 100px; padding-left: 140px;">
+		<h1 class="page-header">Total items carted over the last 1 week</h1>
+		<canvas id="myChart" class="analytics-chart">
+			
+		</canvas>
+	</div>
+	<br/>
+	<div class="container-fluid" style="padding-right: 100px; padding-left: 140px;">
+		<h1 class="page-header">Top 5 items carted over the last 1 week</h1>
+		<canvas id="top5ItemsChart" class="analytics-chart">
+		</canvas>
+	</div>
+	
+	<br/>
+	<div class="container-fluid" style="padding-right: 100px; padding-left: 140px;">
+		<h1 class="page-header">Top 5 items carted over the last 1 week</h1>
+		<canvas id="barChart" class="analytics-chart">
+		</canvas>
+	</div>
+
+	<br/>
+	<div class="container-fluid" style="padding-right: 100px; padding-left: 140px;">
+		<h1 class="page-header">User Demograph</h1>
+		<canvas id="pieChart" class="analytics-chart">
+		</canvas>
+	</div>
+
+{% endblock %}
