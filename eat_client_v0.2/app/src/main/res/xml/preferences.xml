@@ -9,8 +9,8 @@
 
             <intent
                 android:action="android.intent.action.VIEW"
-                android:targetPackage="edu.dartmouth.zhenma.myruns2"
-                android:targetClass="edu.dartmouth.zhenma.myruns2.ProfileActivity"
+                android:targetPackage="info.androidhive.slidingmenu"
+                android:targetClass="info.androidhive.slidingmenu.UserProfileActivity"
                 />
         </PreferenceScreen>
 
@@ -34,16 +34,16 @@
             android:dialogTitle="@string/dialog_title_gender" />
 
         <EditTextPreference
-            android:key="edittext_preference"
-            android:title="@string/title_comment"
-            android:dialogTitle="@string/dialog_title_comment" />
+            android:key="height_preference"
+            android:title="@string/title_height"
+            android:dialogTitle="@string/dialog_title_height" />
 
     </PreferenceCategory>
 
     <PreferenceCategory
         android:title="@string/goals">
         <ListPreference
-            android:key="gender"
+            android:key="goals"
             android:title="@string/title_goal"
             android:summary="@string/summary_goal"
             android:entries="@array/entries_goal"

@@ -72,5 +72,6 @@
     <string name="preference_key_profile_motivate">profile_motivate</string>
     <string name="preference_key_profile_zipcode">profile_zipcode</string>
     <string name="profile_photo_file_name">profile_photo.png</string>
+    <string name="title_height">My height is</string>
 
 </resources>
