@@ -6,7 +6,9 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="info.androidhive.slidingmenu.LoginActivity">
+    tools:context="info.androidhive.slidingmenu.LoginActivity"
+    android:background="#FFF"
+    >
 
     <LinearLayout
         android:id="@+id/frame_container"
@@ -15,8 +17,17 @@
         android:orientation="vertical"
         android:layout_gravity="center_vertical"
         >
-
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Style Cart"
+            android:gravity="center"
+            android:textSize="50dp"
+            android:layout_marginBottom="60dp"
+            android:textColor="@color/logo"
+            />
         <EditText
+            style="@style/edit_text_border"
             android:id="@+id/username"
             android:singleLine="true"
             android:maxLines="1"
@@ -26,6 +37,7 @@
             />
 
         <EditText android:id="@+id/password"
+            style="@style/edit_text_border"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Password"
@@ -34,14 +46,18 @@
             android:maxLines="1"
             android:singleLine="true"
             android:layout_below="@id/username"
+
             />
         <Button
+            style="@style/customButton"
             android:id="@+id/submit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/btn_login_sign_in"
+            android:onClick="onLoginClicked"
             />
         <Button
+            style="@style/customButton"
             android:id="@+id/signup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

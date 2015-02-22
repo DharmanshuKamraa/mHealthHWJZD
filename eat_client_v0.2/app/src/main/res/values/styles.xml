@@ -17,4 +17,25 @@
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
 
+    <style name="edit_text">
+        <item name="android:textSize">20dp</item>
+        <item name="android:textColor">#57981d</item>
+        <item name="android:background">@drawable/edittext_bottom_line</item>
+        <item name="android:paddingBottom">15dp</item>
+        <!--<item name="android:textSize">20dp</item>-->
+    </style>
+
+    <style name="edit_text_border" parent="edit_text">
+        <item name="android:background">@drawable/edittext_bottom_line</item>
+        <item name="android:layout_marginBottom">20dp</item>
+    </style>>
+
+    <style name="customButton" >
+        <item name="android:layout_marginBottom">15dp</item>
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:background">#57981d</item>
+        <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:textSize">20dp</item>
+    </style>
+
 </resources>

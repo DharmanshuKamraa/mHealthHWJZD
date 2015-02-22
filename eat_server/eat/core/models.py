@@ -72,4 +72,15 @@ class Item(TimeStampedModel):
 	
 	def __unicode__(self) :
 		return self.name
-	
+
+class AuthToken(models.Model):
+	user = models.ForeignKey(User)
+	token = models.CharField("token" ,
+								max_length = 255 ,
+								blank = False
+							)
+	created = models.DateTimeField("created" ,
+										default=datetime.datetime.now
+									)
+	modified = models.DateTimeField("modified" ,
+										auto_now = True)

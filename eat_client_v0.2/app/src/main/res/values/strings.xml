@@ -15,6 +15,7 @@
         <item>discount</item>
         <item>Location</item>
         <item>Profile</item>
+        <item>Check</item>
     </string-array>
 
     <!-- Nav Drawer List Item Icons -->
@@ -25,6 +26,7 @@
         <item>@drawable/ic_photos</item>
         <item>@drawable/ic_communities</item>
         <item>@drawable/ic_pages</item>
+        <item>@drawable/ic_whats_hot</item>
         <item>@drawable/ic_whats_hot</item>
     </array>
 
@@ -41,6 +43,9 @@
     <string name="btn_login_sign_in">LOGIN</string>
     <string name="btn_login_sign_up">SIGN UP</string>
     <string name="title_activity_sign_up">SignUp</string>
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="dialog_title_gender">I am a</string>
     <string name="title_gender">male_female</string>
     <string name="summary_gender">Guy / Gal</string>
@@ -73,5 +78,8 @@
     <string name="preference_key_profile_zipcode">profile_zipcode</string>
     <string name="profile_photo_file_name">profile_photo.png</string>
     <string name="title_height">My height is</string>
+    <string name="title_activity_signup">Signup</string>
+    <string name="title_comment">Comment</string>
+    <string name="dialog_title_comment">suggestion</string>
 
 </resources>

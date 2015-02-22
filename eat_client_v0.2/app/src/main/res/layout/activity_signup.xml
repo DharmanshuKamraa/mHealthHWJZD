@@ -1,0 +1,100 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="info.androidhive.slidingmenu.SignUp"
+    android:orientation="vertical"
+    android:background="#FFF">
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/Username"
+        android:hint="Username"
+        android:paddingLeft="10dp"
+        style="@style/edit_text_border"
+        />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/password"
+        android:hint="Password"
+        android:inputType="textPassword"
+        android:paddingLeft="10dp"
+        style="@style/edit_text_border"
+        />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/password_confirm"
+        android:hint="Password Confirm"
+        android:inputType="textPassword"
+        android:paddingLeft="10dp"
+        style="@style/edit_text_border"
+        />
+
+    <EditText
+        android:id="@+id/date_of_birth"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="date"
+        android:hint="Date Of Birth"
+        android:paddingLeft="10dp"
+        style="@style/edit_text_border"
+        />
+
+<!--
+    <RadioGroup
+        android:id="@+id/radioGender"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:orientation="horizontal"
+        style="@style/edit_text_border"
+        >
+
+        <RadioButton
+            android:id="@+id/radioGenderF"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="FEMALE" />
+
+        <RadioButton
+            android:id="@+id/radioGenderM"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="MALE" >
+        </RadioButton>
+    </RadioGroup>
+-->
+    <EditText
+        android:id="@+id/weight"
+        android:hint="Weight (lbs)"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="10dp"
+        style="@style/edit_text_border"
+        />
+    <EditText
+        android:id="@+id/height"
+        android:hint="Height (cms)"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="10dp"
+        style="@style/edit_text_border"
+        />
+
+    <Button
+        android:layout_marginTop="25dp"
+        android:id="@+id/signup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/btn_login_sign_up"
+        android:paddingLeft="10dp"
+        style="@style/customButton"
+        />
+</LinearLayout>
