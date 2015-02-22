@@ -6,16 +6,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class PagesFragment extends Fragment {
+public class CartFragment extends Fragment {
 	
-	public PagesFragment(){}
-	
-	@Override
+	public CartFragment(){}
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
- 
-        View rootView = inflater.inflate(R.layout.fragment_pages, container, false);
-         
+        Bundle savedInstanceState) {
+        View rootView = inflater.inflate(R.layout.fragment_cart, container, false);
         return rootView;
     }
 }

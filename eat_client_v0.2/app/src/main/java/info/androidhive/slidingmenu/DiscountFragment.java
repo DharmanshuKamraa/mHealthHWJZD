@@ -6,16 +6,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class WhatsHotFragment extends Fragment {
+public class DiscountFragment extends Fragment {
 	
-	public WhatsHotFragment(){}
-	
+	public DiscountFragment(){}
 	
 	@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
  
-        View rootView = inflater.inflate(R.layout.fragment_whats_hot, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_discount, container, false);
          
         return rootView;
     }

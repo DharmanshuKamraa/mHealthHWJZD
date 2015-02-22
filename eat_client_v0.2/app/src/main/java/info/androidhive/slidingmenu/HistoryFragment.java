@@ -39,11 +39,11 @@ public class HistoryFragment extends Fragment {
 
     float[][] randomNumbersTab = new float[maxNumberOfLines][numberOfPoints];
 
-	public HistoryFragment(){}
-	
-	@Override
+    public HistoryFragment(){}
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
+                             Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_history, container, false);
         chart = (LineChartView) rootView.findViewById(R.id.chart);
         chart.setOnValueTouchListener(new ValueTouchListener());
