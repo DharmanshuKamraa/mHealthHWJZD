@@ -84,3 +84,14 @@ class AuthToken(models.Model):
 									)
 	modified = models.DateTimeField("modified" ,
 										auto_now = True)
+
+class Cart(TimeStampedModel):
+	user = models.ForeignKey(User)
+	cart_type = models.CharField('Type' ,
+							max_length = 255 ,
+							blank = False ,
+							)
+
+def CartItems(TimeStampedModel):
+	item = models.ForeignKey(Item)
+	cart = models.ForeignKey(Cart)

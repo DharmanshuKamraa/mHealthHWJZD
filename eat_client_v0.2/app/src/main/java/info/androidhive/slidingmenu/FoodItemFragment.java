@@ -9,6 +9,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 
 import java.util.ArrayList;
 
@@ -26,6 +28,7 @@ import info.androidhive.slidingmenu.model.FoodItem;
  */
 public class FoodItemFragment extends ListFragment {
     public FoodItemFragment(){}
+    Spinner food_type_spinner;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -39,10 +42,15 @@ public class FoodItemFragment extends ListFragment {
         foodItems.add(f2);
         FoodItemListAdapter mAdapter = new FoodItemListAdapter(getActivity() ,  foodItems);
         setListAdapter(mAdapter);
-        return rootView;
-    }
 
-    public void onFoodItemAddToCartClicked(View v){
-        Log.i("TAG", "Add to cart clicked in activty");
+        String[] strings = {"Protein" , "Cheese"};
+        food_type_spinner = (Spinner) rootView.findViewById(R.id.explore_filter_type);
+
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this.getActivity() ,R.array.food_type ,
+                android.R.layout.simple_spinner_item);
+//        adapter.setDropDownViewResource();
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        food_type_spinner.setAdapter(adapter);
+        return rootView;
     }
 }

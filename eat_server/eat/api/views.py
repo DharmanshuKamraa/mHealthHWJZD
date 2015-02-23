@@ -10,7 +10,6 @@ from copy import copy
 from .serializers import *
 # Create your views here.
 
-
 @api_view(['POST'])
 @permission_classes([permissions.AllowAny])
 def register(request):
@@ -63,6 +62,21 @@ def user_login(request):
 
 	else :
 		raise InvlalidLoginCredentialsException()
+
+@api_view(['GET'])
+@permission_classes([permissions.AllowAny])
+def fetch_items(request):
+	items = Item.objects.all()
+	filters = request.GET
+	if filters.get('eggs') :
+		items = items.filter(eggs = True)
+	if filters.get('gluten') :
+		items = items.filter(gluten = True)
+	if filters.get('dairy') :
+		items = items.get('dairy')
+	if filters.get('nuts') :
+		items = items.get('nuts')
 	
-def fetch_items_view():
-	pass
+	serializer = ItemSerializer(items , many=True)
+	
+	return Response(serializer.data)

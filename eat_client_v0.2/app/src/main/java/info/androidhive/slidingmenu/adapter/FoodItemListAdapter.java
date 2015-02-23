@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.view.View.OnClickListener;
 
@@ -57,6 +58,7 @@ public class FoodItemListAdapter extends BaseAdapter {
 
         Button btn = (Button) convertView.findViewById(R.id.btn_add_to_cart);
         btn.setOnClickListener(new FoodItemAddToCartListener(foodItems.get(position).getId()));
+
         return convertView;
     }
 
