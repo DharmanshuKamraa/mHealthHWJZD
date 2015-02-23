@@ -38,6 +38,11 @@
             android:title="@string/title_height"
             android:dialogTitle="@string/dialog_title_height" />
 
+        <EditTextPreference
+            android:key="weight_preference"
+            android:title="@string/title_weight"
+            android:dialogTitle="@string/dialog_title_weight" />
+
     </PreferenceCategory>
 
     <PreferenceCategory
