@@ -167,7 +167,7 @@ public class MainActivity extends Activity {
 			fragment = new CartFragment();
 			break;
 		case 1:
-			fragment = new ExploreFragment();
+			fragment = new FoodItemFragment();
 			break;
 		case 2:
 			fragment = new HistoryFragment();

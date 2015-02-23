@@ -1,14 +1,113 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
+    android:layout_height="match_parent"
+    android:background="#fff">
     <lecho.lib.hellocharts.view.LineChartView
         android:id="@+id/chart"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:layout_marginTop="20dp">
+        android:layout_marginTop="20dp"
+        >
     </lecho.lib.hellocharts.view.LineChartView>
 
-</LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/chart"
+        android:orientation="vertical">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/edittext_bottom_line"
+            >
+            <TextView
+                android:textSize="20dp"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:text="Param"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="20dp"
+                android:textColor="#000"/>
+            <TextView
+                android:textSize="20dp"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:text="Value"
+                android:layout_alignParentRight="true"
+                android:textColor="#000"/>
+        </RelativeLayout>
+        <RelativeLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/edittext_bottom_line"
+            >
+            <TextView
+                android:textSize="20dp"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:text="Param"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="20dp"
+                android:textColor="#000"/>
+            <TextView
+                android:textSize="20dp"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:text="Value"
+                android:layout_alignParentRight="true"
+                android:textColor="#000"/>
+        </RelativeLayout>
+        <RelativeLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/edittext_bottom_line"
+            >
+            <TextView
+                android:textSize="20dp"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:text="Param"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="20dp"
+                android:textColor="#000"/>
+            <TextView
+                android:textSize="20dp"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:text="Value"
+                android:layout_alignParentRight="true"
+                android:textColor="#000"/>
+        </RelativeLayout>
+        <RelativeLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/edittext_bottom_line"
+            >
+            <TextView
+                android:textSize="20dp"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:text="Param"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="20dp"
+                android:textColor="#000"/>
+            <TextView
+                android:textSize="20dp"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:text="Value"
+                android:layout_alignParentRight="true"
+                android:textColor="#000"/>
+        </RelativeLayout>
+    </LinearLayout>
+
+</RelativeLayout>
