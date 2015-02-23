@@ -1,10 +1,5 @@
 package info.androidhive.slidingmenu;
 
-import info.androidhive.slidingmenu.adapter.NavDrawerListAdapter;
-import info.androidhive.slidingmenu.model.NavDrawerItem;
-
-import java.util.ArrayList;
-
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
@@ -19,6 +14,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+
+import java.util.ArrayList;
+
+import info.androidhive.slidingmenu.adapter.NavDrawerListAdapter;
+import info.androidhive.slidingmenu.model.NavDrawerItem;
 
 public class MainActivity extends Activity {
 	private DrawerLayout mDrawerLayout;

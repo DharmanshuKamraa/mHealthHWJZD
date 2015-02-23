@@ -90,5 +90,7 @@
     <string name="dialog_title_weight">My weight is</string>
     <string name="title_weight">My weight</string>
     <string name="title_activity_display_map">Map</string>
+    <string name="button_suggest">SUGGEST</string>
+    <string name="button_cancel">CANCLE</string>
 
 </resources>

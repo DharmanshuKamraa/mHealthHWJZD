@@ -11,8 +11,8 @@ public class CartFragment extends Fragment {
 	public CartFragment(){}
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
         Bundle savedInstanceState) {
-//        checking change
         View rootView = inflater.inflate(R.layout.fragment_cart, container, false);
+//        checking change
         return rootView;
     }
 }
