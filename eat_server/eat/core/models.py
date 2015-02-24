@@ -91,7 +91,12 @@ class Cart(TimeStampedModel):
 							max_length = 255 ,
 							blank = False ,
 							)
+	def __unicode__(self):
+		return self.user.username + " - " + self.cart_type
 
-def CartItems(TimeStampedModel):
+class CartItem(TimeStampedModel):
 	item = models.ForeignKey(Item)
 	cart = models.ForeignKey(Cart)
+
+	# def __unicode__(self):
+	# 	return "Cart :-" + self.cart.id + " | Item :-" + self.item.name
