@@ -34,6 +34,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Username"
+            android:text="eat"
             />
 
         <EditText android:id="@+id/password"
@@ -46,7 +47,7 @@
             android:maxLines="1"
             android:singleLine="true"
             android:layout_below="@id/username"
-
+            android:text="helloworld"
             />
         <Button
             style="@style/customButton"

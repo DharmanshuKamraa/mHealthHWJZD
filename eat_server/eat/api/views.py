@@ -5,9 +5,10 @@ from rest_framework.decorators import api_view , authentication_classes , permis
 from rest_framework.response import Response
 
 from django.contrib.auth.hashers import make_password
+from django.contrib.auth import authenticate
 from copy import copy
-
 from .serializers import *
+from .exceptions import *
 # Create your views here.
 
 @api_view(['POST'])
@@ -43,23 +44,19 @@ def fetch_auth_token_for_user(user_id):
 @permission_classes([permissions.AllowAny])
 def user_login(request):
 	data = request.DATA
+
 	username = data.get('username', '')
 	password = data.get('password', '')
 	user = authenticate(username=username, password=password)
-	
 	if user:
 		if user.is_active:
-			# No need to log the user in and start a session
-			# login(request, user)
-			# user.token = self.fetch_auth_token_for_user(user)
+			user.token = fetch_auth_token_for_user(user.id)
 			serializer = UserSerializer(user , context={'request': request})
 			serialized_data = serializer.data
 			serialized_data['auth_token'] = str(fetch_auth_token_for_user(user.id))
-			
-			return Response(serializer.data , status=status.HTTP_201_CREATED)
+			return Response(serialized_data , status=status.HTTP_201_CREATED)
 		else :
 			raise InvlalidLoginCredentialsException()
-
 	else :
 		raise InvlalidLoginCredentialsException()
 

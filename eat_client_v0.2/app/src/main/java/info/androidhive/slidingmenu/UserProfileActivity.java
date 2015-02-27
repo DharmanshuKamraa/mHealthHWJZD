@@ -312,7 +312,6 @@ public class UserProfileActivity extends Activity {
 
         if(savedInstanceState != null)
             mImageCaptureUri = savedInstanceState.getParcelable(URI_INSTANCE_STATE_KEY);
-
         loadProfile();
     }
 }
