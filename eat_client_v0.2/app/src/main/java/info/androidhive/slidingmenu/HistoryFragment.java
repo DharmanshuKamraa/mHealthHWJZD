@@ -60,6 +60,10 @@ public class HistoryFragment extends Fragment {
         return rootView;
     }
 
+    public void fetchHistoryParams() {
+        
+    }
+
     private void generateValues() {
         for (int i = 0; i < maxNumberOfLines; ++i) {
             for (int j = 0; j < numberOfPoints; ++j) {
