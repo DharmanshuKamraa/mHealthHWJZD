@@ -9,6 +9,7 @@ from django.contrib.auth import authenticate
 from copy import copy
 from .serializers import *
 from .exceptions import *
+from .authentication import TokenAuthentication
 # Create your views here.
 
 @api_view(['POST'])
@@ -61,7 +62,8 @@ def user_login(request):
 		raise InvlalidLoginCredentialsException()
 
 @api_view(['GET'])
-@permission_classes([permissions.AllowAny])
+@permission_classes([permissions.IsAuthenticated])
+@authentication_classes([TokenAuthentication])
 def fetch_items(request):
 	items = Item.objects.all()
 	filters = request.GET

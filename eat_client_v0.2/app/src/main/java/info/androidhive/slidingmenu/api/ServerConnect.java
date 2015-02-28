@@ -73,7 +73,7 @@ public class ServerConnect extends AsyncTask<String , Void, String>{
             c.setRequestProperty("Content-type" , "Application/json");
 
             if (!token.isEmpty()) {
-//                c.setRequestProperty("AUTH_TOKEN" , token);
+                c.setRequestProperty("AUTH_TOKEN" , token);
             }
 
             if (type != "GET") {

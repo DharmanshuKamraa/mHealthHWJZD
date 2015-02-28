@@ -4,6 +4,7 @@ from rest_framework import exceptions
 
 class TokenAuthentication(authentication.BaseAuthentication):
 	def authenticate(self, request):
+		print request.META
 		if 'HTTP_AUTH_TOKEN' in request.META :
 			print "AUTH_TOKEN:-" +request.META.get('HTTP_AUTH_TOKEN')
 			try :

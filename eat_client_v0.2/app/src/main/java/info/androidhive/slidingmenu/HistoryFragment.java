@@ -61,7 +61,7 @@ public class HistoryFragment extends Fragment {
     }
 
     public void fetchHistoryParams() {
-        
+
     }
 
     private void generateValues() {
