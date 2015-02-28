@@ -15,10 +15,9 @@ public class LoginConnect extends ServerConnect {
     protected void onPostExecute(String result) {
         try {
             JSONObject jsonObj = new JSONObject(result);
-            Log.i("code" , jsonObj.get("code").toString());
 
             if (jsonObj.get("code").toString().equals("201")) {
-                delegate.processLoginSuccessful(result);
+                delegate.processLoginSuccessful(jsonObj.getString("object"));
             } else {
                 delegate.processFailed("Incorrect login credentials.");
             }

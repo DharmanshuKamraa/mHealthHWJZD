@@ -16,6 +16,7 @@ import android.widget.Toast;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import info.androidhive.slidingmenu.Application.SmartCartApplication;
 import info.androidhive.slidingmenu.api.LoginConnect;
 import info.androidhive.slidingmenu.api.ServerConnect;
 import info.androidhive.slidingmenu.db.UserContract;
@@ -25,10 +26,16 @@ import info.androidhive.slidingmenu.interfaces.LoginAsyncResponse;
 
 
 public class LoginActivity extends Activity implements LoginAsyncResponse{
+    private SQLiteDatabase readable_db;
+    private SQLiteDatabase writable_db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        UserReaderDbHelper mDbHelper = new UserReaderDbHelper(this);
+        this.readable_db = mDbHelper.getReadableDatabase();
+        this.writable_db = mDbHelper.getWritableDatabase();
+
 //        initializeDatabase();
 //        checkAlreadyLoggedIn();
 //        checkLogin();
@@ -94,7 +101,6 @@ public class LoginActivity extends Activity implements LoginAsyncResponse{
     }
 
     public void onLoginClicked(View v) {
-        Log.i("TAG", "Login Clicked");
         JSONObject obj = new JSONObject();
 
         EditText username_view = (EditText) findViewById(R.id.username);
@@ -108,6 +114,8 @@ public class LoginActivity extends Activity implements LoginAsyncResponse{
             obj.put("password" , password);
             LoginConnect s = new LoginConnect();
             s.delegate = this;
+            s.activity = this;
+
             s.execute("POST" , "users/login/" , obj.toString());
 
         } catch (JSONException e) {
@@ -116,17 +124,46 @@ public class LoginActivity extends Activity implements LoginAsyncResponse{
     }
 
     public void onSignUpClicked(View v) {
-        Log.i("TAG", "Login Clicked");
         Intent intent = new Intent(this , SignupActivity.class);
         startActivity(intent);
     }
 
     public void processLoginSuccessful(String s) {
-        Intent intent = new Intent(this , MainActivity.class);
-        startActivity(intent);
+        try {
+            Log.i("UserObject" , s);
+            JSONObject user_obj = new JSONObject(s);
+            saveLoggedInUser(user_obj);
+
+            Intent intent = new Intent(this , MainActivity.class);
+            startActivity(intent);
+
+        } catch (Exception e) {
+
+        }
+
     };
 
     public void processFailed(String s) {
         Toast.makeText(getApplicationContext(), s , Toast.LENGTH_LONG).show();
+    }
+
+    private void saveLoggedInUser(JSONObject user_object) {
+        try {
+            /* Save token in memory rather than database. Maybe add whole user in memory.*/
+
+            ((SmartCartApplication) getApplication()).setUserToken(user_object.get("auth_token").toString());
+            ((SmartCartApplication) getApplication()).setLoggedIn(true);
+
+            /* Save user object in the database.*/
+            ContentValues values = new ContentValues();
+            values.put(UserContract.UserEntry.COLUMN_NAME_ENTRY_ID , user_object.get("id").toString());
+            values.put(UserContract.UserEntry.COLUMN_NAME_TOKEN, user_object.get("auth_token").toString());
+            values.put(UserContract.UserEntry.COLUMN_NAME_USERNAME , user_object.getString("username"));
+            long newRowId = writable_db.insert(UserContract.UserEntry.TABLE_NAME , null, values);
+
+            Log.i("App Token" , ((SmartCartApplication) getApplication()).getUserToken());
+        } catch (Exception e) {
+            Toast.makeText(getApplicationContext(), e.toString() , Toast.LENGTH_LONG).show();
+        }
     }
 }

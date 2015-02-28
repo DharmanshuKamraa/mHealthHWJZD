@@ -1,5 +1,7 @@
 package info.androidhive.slidingmenu.model;
 
+import android.database.Cursor;
+
 /**
  * Created by Dharmanshu on 2/21/15.
  */

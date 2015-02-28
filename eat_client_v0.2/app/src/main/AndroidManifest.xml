@@ -26,7 +26,9 @@
         android:allowBackup="true"
         android:icon="@drawable/cart_green"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme"
+        android:name=".Application.SmartCartApplication"
+        >
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name" >

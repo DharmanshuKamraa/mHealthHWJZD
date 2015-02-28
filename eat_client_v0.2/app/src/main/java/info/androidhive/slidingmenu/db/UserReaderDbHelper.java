@@ -9,7 +9,7 @@ import android.util.Log;
  * Created by Dharmanshu on 2/24/15.
  */
 public class UserReaderDbHelper extends SQLiteOpenHelper {
-    public final static int DATABASE_VERSION = 4;
+    public final static int DATABASE_VERSION = 5;
     public final static String DATABASE_NAME = "smartcart.db";
 
     public UserReaderDbHelper(Context context) {

@@ -18,7 +18,8 @@ public final  class UserContract {
                 "CREATE TABLE " + UserEntry.TABLE_NAME + " ( " +
                         UserEntry._ID + " INT PRIMARY KEY " + "," +
                         UserEntry.COLUMN_NAME_ENTRY_ID + " TEXT " + "," +
-                        UserEntry.COLUMN_NAME_USERNAME + " TEXT " +
+                        UserEntry.COLUMN_NAME_USERNAME + " TEXT " + "," +
+                        UserEntry.COLUMN_NAME_TOKEN + " TEXT " +
                         ")";
 
         private static final String SQL_DELETE_ENTRIES = "DROP TABLE IF EXISTS " + UserEntry.TABLE_NAME;

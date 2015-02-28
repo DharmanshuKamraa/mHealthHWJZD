@@ -15,7 +15,7 @@ public class ExploreFragment extends Fragment {
             Bundle savedInstanceState) {
  
         View rootView = inflater.inflate(R.layout.fragment_explore, container, false);
-         
         return rootView;
     }
+
 }
