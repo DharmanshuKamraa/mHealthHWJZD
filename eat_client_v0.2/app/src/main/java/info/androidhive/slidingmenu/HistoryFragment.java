@@ -2,14 +2,20 @@ package info.androidhive.slidingmenu;
 
 import android.app.Fragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import info.androidhive.slidingmenu.api.ServerConnect;
+import info.androidhive.slidingmenu.interfaces.ApiAsyncResponse;
 import lecho.lib.hellocharts.listener.LineChartOnValueSelectListener;
 import lecho.lib.hellocharts.model.Axis;
 import lecho.lib.hellocharts.model.Line;
@@ -20,7 +26,7 @@ import lecho.lib.hellocharts.model.Viewport;
 import lecho.lib.hellocharts.util.ChartUtils;
 import lecho.lib.hellocharts.view.LineChartView;
 
-public class HistoryFragment extends Fragment {
+public class HistoryFragment extends Fragment implements ApiAsyncResponse {
     private LineChartView chart;
     private LineChartData data;
     private int numberOfLines = 1;
@@ -42,6 +48,12 @@ public class HistoryFragment extends Fragment {
     public HistoryFragment(){}
 
     @Override
+    public void onResume() {
+        super.onResume();
+        fetchHistoryParams();
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_history, container, false);
@@ -49,8 +61,9 @@ public class HistoryFragment extends Fragment {
         chart.setOnValueTouchListener(new ValueTouchListener());
         // Generate some random values.
         generateValues();
-
         generateData();
+
+        fetchHistoryParams();
 
         // Disable viewpirt recalculations, see toggleCubic() method for more info.
         chart.setViewportCalculationEnabled(false);
@@ -61,7 +74,10 @@ public class HistoryFragment extends Fragment {
     }
 
     public void fetchHistoryParams() {
-
+        ServerConnect s = new ServerConnect();
+        s.delegate = this;
+        s.activity = this.getActivity();
+        s.execute("GET" ,"fetch_history_params" , "");
     }
 
     private void generateValues() {
@@ -137,5 +153,28 @@ public class HistoryFragment extends Fragment {
             // TODO Auto-generated method stub
 
         }
+    }
+
+    public void processFinished(String s){
+        Log.i("PARAMS FETCHED" , s);
+        try {
+            JSONObject jsonOutput = new JSONObject(s);
+            TextView total_carts = (TextView) getActivity().findViewById(R.id.total_carts_count);
+            total_carts.setText(jsonOutput.getString("total_carts_created"));
+
+            TextView total_items_carted = (TextView) getActivity().findViewById(R.id.total_items_carted);
+            total_items_carted.setText(jsonOutput.getString("total_items_carted_by_user"));
+
+            TextView total_money_saved = (TextView) getActivity().findViewById(R.id.total_money_saved);
+            total_money_saved.setText(jsonOutput.getString("total_money_saved"));
+        } catch (Exception e) {
+
+        }
+
+
+    }
+
+    public void processFailed(String s) {
+        Log.i("PROCESS FAILED" , s);
     }
 }

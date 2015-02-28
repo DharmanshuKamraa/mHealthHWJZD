@@ -23,9 +23,23 @@
 			description : "Add a new user"
 		} ,
 		{
+			url : "users/login" ,
+			type : "POST" ,
+			data : {
+				"username" : "eat" ,
+				"password" : "helloworld"
+			} ,
+			description : "Log the user in."
+		} ,
+		{
 			url : "items" ,
 			type : "GET" ,
 			description : "Get all items."
+		} ,
+		{
+			url : "fetch_history_params" ,
+			type : "GET" ,
+			description : "Fetch history params for user."
 		}
 	]
 </script>

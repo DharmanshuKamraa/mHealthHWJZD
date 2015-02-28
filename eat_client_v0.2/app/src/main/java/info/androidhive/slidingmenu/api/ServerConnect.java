@@ -35,7 +35,7 @@ import info.androidhive.slidingmenu.model.User;
  */
 
 public class ServerConnect extends AsyncTask<String , Void, String>{
-    public LoginAsyncResponse delegate= null;
+    public ApiAsyncResponse delegate= null;
     public Activity activity = null;
 
     protected String url = "http://ec2-54-191-192-216.us-west-2.compute.amazonaws.com:8001/api/";
@@ -148,6 +148,7 @@ public class ServerConnect extends AsyncTask<String , Void, String>{
         } catch (IOException ex) {
 //            Logger.getLogger(DebugServer.class.getName()).log(Level.SEVERE, null, ex);
         }
+
         return null;
 
     }
@@ -157,16 +158,17 @@ public class ServerConnect extends AsyncTask<String , Void, String>{
     }
 
     protected void onPostExecute(String result) {
+        Log.i("Result" , result);
         try {
             JSONObject jsonObj = new JSONObject(result);
-            if (jsonObj.get("code") == "200") {
+            if (jsonObj.getString("code").equals("200") || jsonObj.getString("code").equals("201")) {
                 /*
                 * Output objects.
                 * */
                 if (jsonObj.has("object")) {
-                    delegate.processLoginSuccessful(jsonObj.getString("object"));
+                    delegate.processFinished(jsonObj.getString("object"));
                 } else {
-                    delegate.processLoginSuccessful(jsonObj.getString("objects"));
+                    delegate.processFinished(jsonObj.getString("objects"));
                 }
             }
         } catch (Exception e) {

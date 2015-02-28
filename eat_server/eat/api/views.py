@@ -79,3 +79,23 @@ def fetch_items(request):
 	serializer = ItemSerializer(items , many=True)
 	
 	return Response(serializer.data)
+
+@api_view(['GET'])
+@permission_classes([permissions.IsAuthenticated])
+@authentication_classes([TokenAuthentication])
+def fetch_history_params(request):
+	cart_ids = Cart.objects.filter(user_id = request.user.id).values_list('id' , flat=True)
+	items_carted = CartItem.objects.filter(cart_id__in =cart_ids)
+	total_items_carted_by_user = len(items_carted)
+	
+	total_carts_created = len(cart_ids)
+	
+	total_money_saved = 0
+	for cart_item in items_carted :
+		total_money_saved += int(cart_item.item.price)
+	
+	return Response({
+		"total_items_carted_by_user" : total_items_carted_by_user ,
+		"total_money_saved" : total_money_saved ,
+		"total_carts_created" : total_carts_created
+	})
