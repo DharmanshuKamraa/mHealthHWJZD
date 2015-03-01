@@ -105,9 +105,9 @@
                 android:textColor="#000"/>
             <TextView
                 android:textSize="20dp"
-                android:layout_width="100dp"
+                android:layout_width="140dp"
                 android:layout_height="wrap_content"
-                android:text="Value"
+                android:text="Co Op hanover"
                 android:layout_alignParentRight="true"
                 android:textColor="#000"/>
         </RelativeLayout>
