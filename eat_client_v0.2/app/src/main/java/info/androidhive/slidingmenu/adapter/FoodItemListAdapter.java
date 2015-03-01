@@ -1,6 +1,8 @@
 package info.androidhive.slidingmenu.adapter;
 
 import info.androidhive.slidingmenu.R;
+import info.androidhive.slidingmenu.api.ServerConnect;
+import info.androidhive.slidingmenu.interfaces.ApiAsyncResponse;
 import info.androidhive.slidingmenu.model.FoodItem;
 import info.androidhive.slidingmenu.model.NavDrawerItem;
 
@@ -57,19 +59,41 @@ public class FoodItemListAdapter extends BaseAdapter {
         label.setText(foodItems.get(position).getTitle());
 
         Button btn = (Button) convertView.findViewById(R.id.btn_add_to_cart);
-        btn.setOnClickListener(new FoodItemAddToCartListener(foodItems.get(position).getId()));
+        btn.setOnClickListener(new FoodItemAddToCartListener(foodItems.get(position).getId() , btn , context));
 
         return convertView;
     }
 
-    public class FoodItemAddToCartListener implements OnClickListener {
+    public class FoodItemAddToCartListener implements OnClickListener,ApiAsyncResponse{
         long itemId;
-        public FoodItemAddToCartListener(long i) {
-           this.itemId = i;
+        Button btn;
+        Context c;
+
+        public FoodItemAddToCartListener(long id , Button btn , Context c) {
+            this.itemId = id;
+            this.btn = btn;
+            this.c = c;
+        }
+
+        public FoodItemAddToCartListener(long id) {
+           this.itemId = id;
         }
 
         public void onClick(View v) {
-            Log.i("TAG" , Objects.toString(itemId));
+//            Log.i("TAG" , Objects.toString(itemId));
+            ServerConnect s = new ServerConnect();
+            s.delegate = this;
+            s.activity = (Activity) context;
+            s.execute("POST" , "mark_item_carted/" + Long.toString(itemId) , "");
+        }
+
+        public void processFinished(String s) {
+            this.btn.setText("CARTED");
+            this.btn.setBackgroundResource(R.color.app_green);
+        }
+
+        public void processFailed(String s) {
+
         }
     }
 }

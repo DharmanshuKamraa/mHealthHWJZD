@@ -29,7 +29,7 @@ import lecho.lib.hellocharts.view.LineChartView;
 public class HistoryFragment extends Fragment implements ApiAsyncResponse {
     private LineChartView chart;
     private LineChartData data;
-    private int numberOfLines = 1;
+    private int numberOfLines = 4;
     private int maxNumberOfLines = 4;
     private int numberOfPoints = 12;
 
@@ -105,7 +105,7 @@ public class HistoryFragment extends Fragment implements ApiAsyncResponse {
         for (int i = 0; i < numberOfLines; ++i) {
 
             List<PointValue> values = new ArrayList<PointValue>();
-            for (int j = 0; j < numberOfPoints; ++j) {
+            for (int j = 1; j < numberOfPoints; ++j) {
                 values.add(new PointValue(j, randomNumbersTab[i][j]));
             }
 
@@ -125,10 +125,11 @@ public class HistoryFragment extends Fragment implements ApiAsyncResponse {
 
         if (hasAxes) {
             Axis axisX = new Axis();
+//            axisX.
             Axis axisY = new Axis().setHasLines(true);
             if (hasAxesNames) {
-                axisX.setName("Axis X");
-                axisY.setName("Axis Y");
+                axisX.setName("Carts");
+                axisY.setName("Percentage Completed");
             }
             data.setAxisXBottom(axisX);
             data.setAxisYLeft(axisY);
@@ -137,7 +138,7 @@ public class HistoryFragment extends Fragment implements ApiAsyncResponse {
             data.setAxisYLeft(null);
         }
 
-        data.setBaseValue(Float.NEGATIVE_INFINITY);
+//        data.setBaseValue(Float.NEGATIVE_INFINITY);
         chart.setLineChartData(data);
     }
 
@@ -145,7 +146,24 @@ public class HistoryFragment extends Fragment implements ApiAsyncResponse {
 
         @Override
         public void onValueSelected(int lineIndex, int pointIndex, PointValue value) {
-            Toast.makeText(getActivity(), "Selected: " + value, Toast.LENGTH_SHORT).show();
+            String nutrient = "Carbohydrates";
+
+            switch (lineIndex) {
+                case 1 :
+                    nutrient = "Carbohydrates";
+                    break;
+                case 2:
+                    nutrient = "Protein";
+                    break;
+                case 3:
+                    nutrient = "Fat";
+                    break;
+                case 4:
+                    nutrient = "Vitamins";
+                    break;
+            }
+
+            Toast.makeText(getActivity(), nutrient + " : " + value.getY() ,Toast.LENGTH_SHORT).show();
         }
 
         @Override
@@ -170,10 +188,7 @@ public class HistoryFragment extends Fragment implements ApiAsyncResponse {
         } catch (Exception e) {
 
         }
-
-
     }
-
     public void processFailed(String s) {
         Log.i("PROCESS FAILED" , s);
     }

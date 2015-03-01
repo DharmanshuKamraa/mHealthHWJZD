@@ -25,6 +25,5 @@ public class LoginConnect extends ServerConnect {
             Log.i("exception" , e.toString());
             delegate.processFailed("Server error");
         }
-
     }
 }

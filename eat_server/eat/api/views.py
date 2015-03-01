@@ -76,8 +76,7 @@ def fetch_items(request):
 	if filters.get('nuts') :
 		items = items.get('nuts')
 	
-	serializer = ItemSerializer(items , many=True)
-	
+	serializer = ItemSerializer(items , many=True , context={'request' : request})
 	return Response(serializer.data)
 
 @api_view(['GET'])
@@ -99,3 +98,17 @@ def fetch_history_params(request):
 		"total_money_saved" : total_money_saved ,
 		"total_carts_created" : total_carts_created
 	})
+
+@api_view(['POST'])
+@permission_classes([permissions.IsAuthenticated])
+@authentication_classes([TokenAuthentication])
+def mark_item_carted(request , pk):
+	carts = Cart.objects.filter(user_id=request.user.id).order_by('-created')
+	if not len(carts) :
+		cart = Cart(user_id = request.user.id)
+		cart.save()
+	else :
+		cart = carts[0]
+	cart_item = CartItem(item_id=pk , cart_id = cart.id)
+	cart_item.save()
+	return Response()

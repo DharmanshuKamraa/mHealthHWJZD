@@ -86,10 +86,12 @@ class AuthToken(models.Model):
 										auto_now = True)
 
 class Cart(TimeStampedModel):
+	TYPE = Choices("WEIGHT_LOSS" , "WEIGHT_GAIN" , "HEALTHY" , "VEGAN")
 	user = models.ForeignKey(User)
 	cart_type = models.CharField('Type' ,
 							max_length = 255 ,
 							blank = False ,
+							default = "WEIGHT_LOSS"
 							)
 	def __unicode__(self):
 		return self.user.username + " - " + self.cart_type

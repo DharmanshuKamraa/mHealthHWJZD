@@ -41,7 +41,7 @@
 
     <Button
         android:id="@+id/btn_add_to_cart"
-        android:layout_width="wrap_content"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:background="#3F6595"
