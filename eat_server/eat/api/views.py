@@ -112,3 +112,10 @@ def mark_item_carted(request , pk):
 	cart_item = CartItem(item_id=pk , cart_id = cart.id)
 	cart_item.save()
 	return Response()
+
+def mark_item_uncarted(request , pk):
+	carts = Cart.objects.filter(user_id=request.user.id).order_by('-created')
+	if not len(carts) :
+		raise ApiInvalidArgumentException('No cart yet.')
+	CartItem.objects.filter(item_id=pk , cart_id = carts[0].id).delete()
+	return Response()
