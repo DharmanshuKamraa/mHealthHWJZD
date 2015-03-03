@@ -1,80 +1,153 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="wrap_content" >
 <LinearLayout
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
     android:background="#F0F0F5" >
 
     <LinearLayout
+        android:layout_marginTop="5dp"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp"
         android:orientation="horizontal"
         android:id="@+id/linearLayout1">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="100dip"
             android:layout_height="wrap_content"
             android:text="Diary"
             android:textSize="20sp" />
 
-        <SeekBar
-            android:id="@+id/seek1"
+        <ProgressBar
+            style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="70dp"
-            android:progress="20"
-            android:secondaryProgress="20" />
+            android:layout_height="match_parent"
+            android:id="@+id/progressBar1"
+            android:paddingLeft="10dp"
+            android:paddingRight="30dp"
+            android:layout_marginBottom = "5dp"
+            android:max="100"
+            android:progress="70"
+            android:progressDrawable="@drawable/progressbar2"
+            android:indeterminate="false" />
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
         android:orientation="horizontal"
         android:id="@+id/linearLayout2"
         android:layout_below="@+id/linearLayout1">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="100dip"
             android:layout_height="wrap_content"
-            android:text="fruit"
+            android:text="Fruit"
             android:textSize="20sp" />
 
-        <SeekBar
-            android:id="@+id/seek2"
+        <ProgressBar
+            style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:progress="80"
-            android:paddingLeft="80dp"
-            android:secondaryProgress="20" />
+            android:layout_height="match_parent"
+            android:id="@+id/progressBar2"
+            android:paddingLeft="10dp"
+            android:paddingRight="30dp"
+            android:layout_marginBottom = "5dp"
+            android:max="100"
+            android:progress="50"
+            android:progressDrawable="@drawable/progressbar6"
+            android:indeterminate="false" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
         android:orientation="horizontal"
-        android:id="@+id/linearLayout3"
-        android:layout_below="@+id/linearLayout2">
+        android:id="@+id/linearLayout4"
+        android:layout_below="@+id/linearLayout2"
+        android:weightSum="1">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="100dip"
             android:layout_height="wrap_content"
-            android:text="protein"
+            android:text="Protein"
             android:textSize="20sp" />
 
-        <SeekBar
-            android:id="@+id/seek3"
+        <ProgressBar
+            style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="55dp"
+            android:layout_height="match_parent"
+            android:id="@+id/progressBar3"
+            android:paddingLeft="10dp"
+            android:paddingRight="30dp"
+            android:max="100"
             android:progress="50"
-            android:secondaryProgress="20" />
+            android:layout_marginBottom = "5dp"
+            android:progressDrawable="@drawable/progressbar3"
+            android:indeterminate="false" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/linearLayout5"
+        android:layout_below="@+id/linearLayout2"
+        android:weightSum="1">
+
+        <TextView
+            android:layout_width="100dip"
+            android:layout_height="wrap_content"
+            android:text="Grains"
+            android:textSize="20sp" />
+
+        <ProgressBar
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/progressBar4"
+            android:paddingLeft="10dp"
+            android:paddingRight="30dp"
+            android:max="100"
+            android:progress="50"
+            android:layout_marginBottom = "5dp"
+            android:progressDrawable="@drawable/progressbar4"
+            android:indeterminate="false" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/linearLayout3"
+        android:layout_below="@+id/linearLayout2"
+        android:weightSum="1">
+
+        <TextView
+            android:layout_width="100dip"
+            android:layout_height="wrap_content"
+            android:text="Vegetables"
+            android:textSize="20sp" />
+
+        <ProgressBar
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/progressBar5"
+            android:paddingLeft="10dp"
+            android:paddingRight="30dp"
+            android:max="100"
+            android:progress="60"
+            android:layout_marginBottom = "5dp"
+            android:progressDrawable="@drawable/progressbar5"
+            android:indeterminate="false" />
+
     </LinearLayout>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -82,6 +155,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         >
+
         <ListView
             android:id="@android:id/list"
             android:layout_width="fill_parent"
