@@ -48,22 +48,34 @@ class Store(TimeStampedModel):
 		return self.name
 		
 class Item(TimeStampedModel):
+	TYPE = Choices('VEGETABLES' , 'FRUITS' , 'DAIRY' , 'PROTEIN' , 'GRAINS')
 	name = models.CharField('name' ,
 							max_length = 255 ,
 							db_index = True ,
 							null = False
 							)
+	item_type = models.CharField('Type' ,
+								max_length = 255 ,
+								choices = TYPE ,
+								default = TYPE.VEGETABLES
+								)
 	store = models.ForeignKey('Store')
 	price = models.CharField(_('Price') ,
 								max_length = 255 ,
 								null = False ,
 								blank = False
 								)
+	price_per_saving = models.CharField('Price per serving',
+										max_length = 255 ,
+										null = True
+										)
+	# calories = models.CharField('')
 	CATEGORIES = (
 				'VEGETABLE', 
 				'FRUIT',
 				'MEAT'
 				)
+	
 	vegetarian = models.BooleanField()
 	nuts = models.BooleanField()
 	dairy = models.BooleanField()
