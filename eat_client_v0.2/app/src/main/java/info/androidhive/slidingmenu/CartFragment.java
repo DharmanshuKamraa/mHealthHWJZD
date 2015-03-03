@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -27,7 +28,7 @@ public class CartFragment extends ListFragment implements FoodItemAsyncResponse 
         View rootView = inflater.inflate(R.layout.fragment_cart, container, false);
 //        checking change
 
-        ListView myListView = (ListView) rootView.findViewById(R.id.);
+//        ListView myListView = (ListView) rootView.findViewById(R.id.);
         return rootView;
     }
 
