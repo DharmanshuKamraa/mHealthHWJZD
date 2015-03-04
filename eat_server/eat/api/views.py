@@ -77,6 +77,9 @@ def fetch_items(request):
 		items = items.get('nuts')
 	if filters.get('q') :
 		items = items.filter(name__istartswith=filters.get('q'))
+	if filters.get('carted') :
+		item_ids = CartItem.objects.all().values_list('item_id' , flat = True)
+		items = items.filter(id__in=item_ids)
 	
 	serializer = ItemSerializer(items , many=True , context={'request' : request})
 	return Response(serializer.data)
@@ -88,7 +91,7 @@ def fetch_history_params(request):
 	cart_ids = Cart.objects.filter(user_id = request.user.id).values_list('id' , flat=True)
 	items_carted = CartItem.objects.filter(cart_id__in =cart_ids)
 	total_items_carted_by_user = len(items_carted)
-	
+
 	total_carts_created = len(cart_ids)
 	
 	total_money_saved = 0

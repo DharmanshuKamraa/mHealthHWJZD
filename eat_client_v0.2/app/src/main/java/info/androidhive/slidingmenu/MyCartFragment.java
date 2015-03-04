@@ -1,73 +1,46 @@
 package info.androidhive.slidingmenu;
 
 import android.app.Activity;
-import android.app.ListFragment;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
-import android.support.v7.widget.CardView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.Spinner;
-import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.FormatFlagsConversionMismatchException;
 
-import info.androidhive.slidingmenu.adapter.FoodItemListAdapter;
 import info.androidhive.slidingmenu.api.FoodItemConnect;
 import info.androidhive.slidingmenu.interfaces.FoodItemAsyncResponse;
-import info.androidhive.slidingmenu.model.FoodItem;
 import info.androidhive.slidingmenu.model.FoodItemCard;
-import info.androidhive.slidingmenu.utils.CustomCardExapander;
 import it.gmariotti.cardslib.library.internal.Card;
 import it.gmariotti.cardslib.library.internal.CardArrayAdapter;
-import it.gmariotti.cardslib.library.internal.CardExpand;
 import it.gmariotti.cardslib.library.internal.CardHeader;
-import it.gmariotti.cardslib.library.internal.CardThumbnail;
 import it.gmariotti.cardslib.library.view.CardListView;
-import it.gmariotti.cardslib.library.view.component.CardThumbnailView;
 
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {
- * @link FoodItemFragment.OnFragmentInteractionListener} interface
+ * {@link MyCartFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link
- * FoodItemFragment
- * #newInstance} factory method to
+ * Use the {@link MyCartFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
 
-public class FoodItemFragment extends Fragment implements FoodItemAsyncResponse {
-    public FoodItemFragment(){}
-    Spinner food_type_spinner;
-
+public class MyCartFragment extends Fragment implements FoodItemAsyncResponse {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.fragment_food_item, container, false);
-
-//        String[] strings = {"Protein" , "Cheese"};
-//        food_type_spinner = (Spinner) rootView.findViewById(R.id.explore_filter_type);
-
-//        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this.getActivity() ,R.array.food_type ,
-//                android.R.layout.simple_spinner_item);
-//        adapter.setDropDownViewResource();
-//        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//        food_type_spinner.setAdapter(adapter);
         setInitialAdapter();
         return rootView;
     }
@@ -76,7 +49,7 @@ public class FoodItemFragment extends Fragment implements FoodItemAsyncResponse 
         FoodItemConnect f = new FoodItemConnect();
         f.delegate = this;
         f.activity = getActivity();
-        f.execute("GET" , "items/" , "");
+        f.execute("GET" , "items/" , "carted=1");
     }
 
     public void makeFilterCall(String q) {
@@ -84,11 +57,10 @@ public class FoodItemFragment extends Fragment implements FoodItemAsyncResponse 
         f.delegate = this;
         f.activity = getActivity();
         if (q.isEmpty()) {
-            f.execute("GET" , "items/" , "");
+            f.execute("GET" , "items/" , "carted=1");
         } else {
-            f.execute("GET" , "items/" , "q="+q);
+            f.execute("GET" , "items/" , "carted=1&q="+q);
         }
-
     }
 
     public void processItemListFetched(String s) {
@@ -100,22 +72,16 @@ public class FoodItemFragment extends Fragment implements FoodItemAsyncResponse 
                 JSONObject jsonObject = jsonListItems.getJSONObject(i);
                 FoodItemCard card = new FoodItemCard(getActivity());
                 card.setParams(
-                            jsonObject.getLong("id") ,
-                            jsonObject.getString("name") ,
-                            "Co Op Hanover." ,
-                            jsonObject.getString("price") ,
-                            jsonObject.getInt("check_carted_by_user")
+                        jsonObject.getLong("id") ,
+                        jsonObject.getString("name") ,
+                        "Co Op Hanover." ,
+                        jsonObject.getString("price") ,
+                        jsonObject.getInt("check_carted_by_user")
                 );
-
-                CustomCardExapander cardExpand = new CustomCardExapander(getActivity());
-
-                card.addCardExpand(cardExpand);
-
                 cards.add(card);
-                Log.i("check loop" , "here");
             }
 
-            CardArrayAdapter mCardArrayAdapter = new CardArrayAdapter(getActivity(),cards);
+            final CardArrayAdapter mCardArrayAdapter = new CardArrayAdapter(getActivity(),cards);
 
             CardListView listView = (CardListView) getActivity().findViewById(R.id.myCardList);
             listView.setAdapter(mCardArrayAdapter);
@@ -145,4 +111,5 @@ public class FoodItemFragment extends Fragment implements FoodItemAsyncResponse 
     public void processFailed(String s) {
 
     }
+
 }

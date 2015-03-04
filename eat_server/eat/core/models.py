@@ -84,6 +84,9 @@ class Item(TimeStampedModel):
 	
 	def __unicode__(self) :
 		return self.name
+	
+	def check_carted_by_user(self , user=False) :
+		return CartItem.objects.filter(item_id=self.id).count()
 
 class AuthToken(models.Model):
 	user = models.ForeignKey(User)

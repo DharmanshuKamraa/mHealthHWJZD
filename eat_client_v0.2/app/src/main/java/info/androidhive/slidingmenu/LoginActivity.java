@@ -1,5 +1,6 @@
 package info.androidhive.slidingmenu;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Intent;
@@ -18,16 +19,15 @@ import org.json.JSONObject;
 
 import info.androidhive.slidingmenu.Application.SmartCartApplication;
 import info.androidhive.slidingmenu.api.LoginConnect;
-import info.androidhive.slidingmenu.api.ServerConnect;
 import info.androidhive.slidingmenu.db.UserContract;
 import info.androidhive.slidingmenu.db.UserReaderDbHelper;
-import info.androidhive.slidingmenu.interfaces.ApiAsyncResponse;
 import info.androidhive.slidingmenu.interfaces.LoginAsyncResponse;
 
 
 public class LoginActivity extends Activity implements LoginAsyncResponse{
     private SQLiteDatabase readable_db;
     private SQLiteDatabase writable_db;
+    private ActionBar mActionBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +39,8 @@ public class LoginActivity extends Activity implements LoginAsyncResponse{
 //        initializeDatabase();
 //        checkAlreadyLoggedIn();
 //        checkLogin();
+        mActionBar = getActionBar();
+        mActionBar.hide();
         setContentView(R.layout.activity_login);
     }
 

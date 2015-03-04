@@ -13,21 +13,21 @@
         <item>Explore</item>
         <item>History</item>
         <item>discount</item>
-        <item>Location</item>
+        <item>My Cart</item>
         <item>Profile</item>
-        <item>Check</item>
+        <!--<item>Check</item>-->
     </string-array>
 
     <!-- Nav Drawer List Item Icons -->
     <!-- Keep them in order as the titles are in -->
     <array name="nav_drawer_icons">
-        <item>@drawable/ic_home</item>
-        <item>@drawable/ic_people</item>
-        <item>@drawable/ic_photos</item>
-        <item>@drawable/ic_communities</item>
+        <item>@drawable/ic_cart_loaded</item>
+        <item>@drawable/ic_explore</item>
+        <item>@drawable/ic_history</item>
+        <item>@drawable/ic_whats_hot</item>
         <item>@drawable/ic_pages</item>
-        <item>@drawable/ic_whats_hot</item>
-        <item>@drawable/ic_whats_hot</item>
+        <item>@drawable/ic_profile</item>
+        <!--<item>@drawable/ic_whats_hot</item>-->
     </array>
 
     <string-array name="food_type">
@@ -57,7 +57,7 @@
     <string name="dialog_title_goal">I want to</string>
     <string name="title_goal">My goal:</string>
     <string name="summary_goal">Lose / add weight</string>
-    <string name="title_activity_user_profile">UserProfileActivity</string>
+    <string name="title_activity_user_profile">Profile Account</string>
     <string name="ui_button_change_title">Change profile picture</string>
     <string name="ui_profile_name_title">Username</string>
     <string name="ui_profile_name_hint">Your name</string>

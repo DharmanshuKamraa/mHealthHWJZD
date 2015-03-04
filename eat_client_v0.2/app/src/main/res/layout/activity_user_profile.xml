@@ -19,7 +19,7 @@
             android:id="@+id/imageProfile"
             android:layout_gravity="center"
             android:layout_weight="10"
-            android:layout_marginTop="60dp"
+            android:layout_marginTop="30dp"
             android:focusable="true"
             android:focusableInTouchMode="true"/>
 
@@ -28,15 +28,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/ui_button_change_title"
+            android:textColor="@color/app_green"
             android:id="@+id/btnChangePhoto"
+            android:textSize="15sp"
             android:layout_weight="1"
             android:layout_gravity="center_horizontal"
+            android:background="@null"
             android:onClick="onChangePhotoClicked"
             />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/app_green"
+            android:textStyle="bold"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="@string/ui_profile_name_title" />
 
@@ -50,6 +55,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/app_green"
+            android:textStyle="bold"
             android:layout_marginTop="15dp"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="@string/ui_profile_email_title" />
@@ -66,6 +73,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/app_green"
+            android:textStyle="bold"
             android:layout_marginTop="15dp"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="@string/ui_profile_psw_title" />
@@ -81,6 +90,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/app_green"
+            android:textStyle="bold"
             android:layout_marginTop="15dp"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="@string/ui_profile_motivate_title" />
@@ -119,6 +130,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textColor="@color/app_green"
             android:layout_marginTop="15dp"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="@string/ui_profile_zipcode_title" />
@@ -138,24 +151,26 @@
             android:layout_marginBottom="0dp"
             android:layout_marginTop="0dp">
 
-            <Button
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/ui_button_save_title"
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/save_btn"
                 android:id="@+id/btnSave"
+                android:background="@null"
                 android:layout_weight="1"
                 android:clickable="true"
+                android:layout_marginBottom="10dp"
                 android:onClick="onSaveClicked" />
 
-            <Button
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/ui_button_logout_title"
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/cancel_btn"
+                android:background="@null"
                 android:id="@+id/btnLogout"
                 android:layout_weight="1"
                 android:onClick="onLogoutClicked"
+                android:layout_marginBottom="10dp"
                 android:clickable="true" />
         </LinearLayout>
 
