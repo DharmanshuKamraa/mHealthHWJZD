@@ -31,6 +31,6 @@ public class ProfileFragment extends PreferenceFragment {
         // Load the preferences from an XML resource
         addPreferencesFromResource(R.xml.preferences);
         mActionBar = getActivity().getActionBar();
-
+//        mActionBar.hide();
     }
 }

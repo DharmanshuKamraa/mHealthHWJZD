@@ -37,8 +37,9 @@ public class MainActivity extends Activity {
 
 	private ArrayList<NavDrawerItem> navDrawerItems;
 	private NavDrawerListAdapter adapter;
+    private boolean shouldGoInvisible;
 
-	@Override
+    @Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
@@ -85,24 +86,48 @@ public class MainActivity extends Activity {
 		// enabling action bar app icon and behaving it as toggle button
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 		getActionBar().setHomeButtonEnabled(true);
+//        getActionBar().setDisplayOptions(
+//                ActionBar.DISPLAY_SHOW_HOME | ActionBar.DISPLAY_SHOW_TITLE);
 
 		mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
 				R.drawable.ic_drawer, //nav menu toggle icon
 				R.string.app_name, // nav drawer open - description for accessibility
 				R.string.app_name // nav drawer close - description for accessibility
 		) {
+            float mPreviousOffset = 0f;
 			public void onDrawerClosed(View view) {
-				getActionBar().setTitle(mTitle);
+//				getActionBar().setTitle(mTitle);
+                super.onDrawerClosed(view);
+                shouldGoInvisible = false;
 				// calling onPrepareOptionsMenu() to show action bar icons
 				invalidateOptionsMenu();
 			}
 
-			public void onDrawerOpened(View drawerView) {
-				getActionBar().setTitle(mDrawerTitle);
+			public void onDrawerOpened(View view) {
+//				getActionBar().setTitle(mDrawerTitle);
+                super.onDrawerOpened(view);
+                shouldGoInvisible = true;
 				// calling onPrepareOptionsMenu() to hide action bar icons
 				invalidateOptionsMenu();
 			}
-		};
+
+            @Override
+            public void onDrawerSlide(View arg0, float slideOffset) {
+
+                super.onDrawerSlide(arg0, slideOffset);
+                if(slideOffset > mPreviousOffset && !shouldGoInvisible){
+                    shouldGoInvisible = true;
+                    invalidateOptionsMenu();
+                }else if(mPreviousOffset > slideOffset && slideOffset < 0.5f && shouldGoInvisible){
+                    shouldGoInvisible = false;
+                    invalidateOptionsMenu();
+                }
+                mPreviousOffset = slideOffset;
+
+            }
+
+        };
+
 		mDrawerLayout.setDrawerListener(mDrawerToggle);
 
 		if (savedInstanceState == null) {
@@ -151,10 +176,22 @@ public class MainActivity extends Activity {
 	@Override
 	public boolean onPrepareOptionsMenu(Menu menu) {
 		// if nav drawer is opened, hide the action items
-		boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
-		menu.findItem(R.id.action_settings).setVisible(!drawerOpen);
+//		boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
+        boolean drawerOpen = shouldGoInvisible;
+        hideMenuItems(menu, !drawerOpen);
+//		menu.findItem(R.id.action_settings).setVisible(!drawerOpen);
 		return super.onPrepareOptionsMenu(menu);
 	}
+
+    private void hideMenuItems(Menu menu, boolean visible)
+    {
+
+        for(int i = 0; i < menu.size(); i++){
+
+            menu.getItem(i).setVisible(visible);
+
+        }
+    }
 
 	/**
 	 * Diplaying fragment view for selected nav drawer list item
