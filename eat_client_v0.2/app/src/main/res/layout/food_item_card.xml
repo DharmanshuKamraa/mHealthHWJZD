@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/food_card"
+    android:layout_marginTop="5dp"
+    android:layout_marginBottom="10dp"
+    >
+
+    <!-- Card visible layout -->
+    <it.gmariotti.cardslib.library.view.ForegroundLinearLayout
+        android:id="@+id/card_main_layout"
+        style="@style/card.native.main_layout_foreground"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+        <!-- Compound view for Header Card
+             If you want to customize this element use attr card:card_header_layout_resourceID
+             You can also use your CardHeader subclass-->
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Title"
+            android:textSize="30dp"
+            android:paddingLeft="10dp"
+            android:textColor="@color/app_green"
+            />
+
+        <RelativeLayout
+            android:id="@+id/card_thumb_and_content_layout"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
+            android:layout_marginTop="15dp">
+
+            <ImageView
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/card_thumbnail_image"
+                style="@style/card.native.card_thumbnail_image"
+                android:src="@drawable/eggs"
+                android:layout_height="100dp"
+                android:layout_width="100dp"
+                android:layout_alignParentLeft="true"
+            />
+            <ImageView
+                android:layout_marginTop="2dp"
+                android:id="@+id/colorBorder"
+                android:background="@drawable/rectangle"
+                android:layout_marginLeft="10dp"
+                android:layout_width="5dp"
+                android:layout_height="@dimen/card_base_empty_height"
+                android:layout_toRightOf="@id/card_thumbnail_image"/>
+
+            <!-- Main Content View -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_marginLeft="20dp"
+                android:layout_toRightOf="@id/colorBorder"
+                >
+
+                <TextView
+                    android:id="@+id/seller"
+                    android:layout_width="140dp"
+                    android:layout_height="wrap_content"
+                    android:text="SELLER : sadasads"
+                />
+                <TextView
+                    android:id="@+id/price"
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:text="Price : 200$"
+                />
+                <TextView
+                    android:id="@+id/savings"
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:text="You save : 20$"
+                />
+
+            </LinearLayout>
+            <Button
+                android:id="@+id/btn_add_to_cart"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:textSize="10dp"
+                android:layout_marginLeft="65dp"
+                android:background="@drawable/plus"
+                android:textColor="#fff"
+                android:layout_alignParentRight="true"
+
+            />
+        </RelativeLayout>
+
+    </it.gmariotti.cardslib.library.view.ForegroundLinearLayout>
+
+    <!-- Expand layout. You can customize this element with your CardExpand class -->
+    <!--<FrameLayout-->
+        <!--android:id="@+id/card_content_expand_layout"-->
+        <!--style="@style/card.native.main_contentExpand"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!-->-->
+    <!--</FrameLayout>-->
+
+</LinearLayout><!-- From: file:/home/gabriele/Lavoro/Android/AndroidStudioProjects/wrks/cardslib/library-core/src/main/res/layout/native_card_thumbnail_layout.xml -->

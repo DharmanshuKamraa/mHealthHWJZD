@@ -5,12 +5,17 @@ import android.app.ListFragment;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.support.v7.widget.CardView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -22,6 +27,13 @@ import info.androidhive.slidingmenu.adapter.FoodItemListAdapter;
 import info.androidhive.slidingmenu.api.FoodItemConnect;
 import info.androidhive.slidingmenu.interfaces.FoodItemAsyncResponse;
 import info.androidhive.slidingmenu.model.FoodItem;
+import info.androidhive.slidingmenu.model.FoodItemCard;
+import it.gmariotti.cardslib.library.internal.Card;
+import it.gmariotti.cardslib.library.internal.CardArrayAdapter;
+import it.gmariotti.cardslib.library.internal.CardHeader;
+import it.gmariotti.cardslib.library.internal.CardThumbnail;
+import it.gmariotti.cardslib.library.view.CardListView;
+import it.gmariotti.cardslib.library.view.component.CardThumbnailView;
 
 
 /**
@@ -36,7 +48,7 @@ import info.androidhive.slidingmenu.model.FoodItem;
  * create an instance of this fragment.
  */
 
-public class FoodItemFragment extends ListFragment implements FoodItemAsyncResponse {
+public class FoodItemFragment extends Fragment implements FoodItemAsyncResponse {
     public FoodItemFragment(){}
     Spinner food_type_spinner;
 
@@ -46,16 +58,55 @@ public class FoodItemFragment extends ListFragment implements FoodItemAsyncRespo
 
         View rootView = inflater.inflate(R.layout.fragment_food_item, container, false);
 
-        String[] strings = {"Protein" , "Cheese"};
-        food_type_spinner = (Spinner) rootView.findViewById(R.id.explore_filter_type);
+//        String[] strings = {"Protein" , "Cheese"};
+//        food_type_spinner = (Spinner) rootView.findViewById(R.id.explore_filter_type);
 
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this.getActivity() ,R.array.food_type ,
-                android.R.layout.simple_spinner_item);
+//        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this.getActivity() ,R.array.food_type ,
+//                android.R.layout.simple_spinner_item);
 //        adapter.setDropDownViewResource();
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        food_type_spinner.setAdapter(adapter);
+//        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//        food_type_spinner.setAdapter(adapter);
         setInitialAdapter();
         return rootView;
+    }
+
+    public void setAdapterForCard() {
+        ArrayList<Card> cards = new ArrayList<Card>();
+
+        //Create a Card
+        FoodItemCard card = new FoodItemCard(getActivity());
+//        card.setParams("Eggs" , "Co Op Speaking." , "20$");
+
+//        Card card2 = new Card(getActivity());
+        card.setTitle("Eggs");
+
+//        CardView cardView = (CardView) card.getCardView();
+//        card.setupInnerViewElements((ViewGroup)cardView.getParent() , cardView);
+//        TextView seller = (TextView) cardView.findViewById(R.id.seller);
+//        seller.setText("Eggs");
+
+//        CardThumbnail cardThumbnail = card.getCardThumbnail();
+//        cardThumbnail.setUrlResource("http://workouttrends.com/wp-content/uploads/2015/01/eggs.jpg");
+
+        //Create a CardHeader
+        CardHeader header = new CardHeader(getActivity());
+        header.setTitle("Eggs");
+
+//        CardThumbnail cardThumbnail = new CardThumbnail(getActivity());
+//        cardThumbnail.setUrlResource("http://workouttrends.com/wp-content/uploads/2015/01/eggs.jpg");
+
+//        card.addCardThumbnail(cardThumbnail);
+
+        //Add Header to card
+        card.addCardHeader(header);
+        cards.add(card);
+
+        CardArrayAdapter mCardArrayAdapter = new CardArrayAdapter(getActivity(),cards);
+        CardListView listView = (CardListView) getActivity().findViewById(R.id.myCardList);
+        listView.setAdapter(mCardArrayAdapter);
+//        if (listView!=null){
+//
+//        }
     }
 
     public void setInitialAdapter() {
@@ -65,31 +116,61 @@ public class FoodItemFragment extends ListFragment implements FoodItemAsyncRespo
         f.execute("GET" , "items/" , "");
     }
 
+    public void makeFilterCall(String q) {
+        FoodItemConnect f = new FoodItemConnect();
+        f.delegate = this;
+        f.activity = getActivity();
+        if (q.isEmpty()) {
+            f.execute("GET" , "items/" , "");
+        } else {
+            f.execute("GET" , "items/" , "q="+q);
+        }
+
+    }
+
     public void processItemListFetched(String s) {
-        Log.i("List items" , s);
-        ArrayList<FoodItem> foodItems = new ArrayList<FoodItem>();
+//        ArrayList<FoodItem> foodItems = new ArrayList<FoodItem>();
+        ArrayList<Card> cards = new ArrayList<Card>();
         try {
             JSONArray jsonListItems = new JSONArray(s);
             for (int i = 0; i < jsonListItems.length(); i++) {
                 JSONObject jsonObject = jsonListItems.getJSONObject(i);
-
-//                FoodItem f = new FoodItem(1 , "Eggs" , "2$" , "http://globe-views.com/dcim/dreams/eggs/eggs-01.jpg" , "Co Op Hanover");
-                FoodItem f = new FoodItem(
-                        jsonObject.getInt("id") ,
-                        jsonObject.getString("name") ,
-                        jsonObject.getString("price") ,
-                        "http://globe-views.com/dcim/dreams/eggs/eggs-01.jpg" ,
-                        jsonObject.getString("store")
+                FoodItemCard card = new FoodItemCard(getActivity());
+                card.setParams(
+                            jsonObject.getLong("id") ,
+                            jsonObject.getString("name") ,
+                            "Co Op Hanover." ,
+                            jsonObject.getString("price")
                 );
-                foodItems.add(f);
+                cards.add(card);
+                Log.i("check loop" , "here");
             }
-            FoodItemListAdapter mAdapter = new FoodItemListAdapter(getActivity() ,  foodItems);
-            setListAdapter(mAdapter);
 
+            final CardArrayAdapter mCardArrayAdapter = new CardArrayAdapter(getActivity(),cards);
+
+            CardListView listView = (CardListView) getActivity().findViewById(R.id.myCardList);
+            listView.setAdapter(mCardArrayAdapter);
+
+            EditText search_view = (EditText) getActivity().findViewById(R.id.search_filter);
+            search_view.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    makeFilterCall(s.toString());
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+
+                }
+            });
         } catch (Exception e) {
             Log.i("ISSUE" , e.toString());
         }
-
     }
 
     public void processFailed(String s) {

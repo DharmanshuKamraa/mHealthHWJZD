@@ -75,6 +75,8 @@ def fetch_items(request):
 		items = items.get('dairy')
 	if filters.get('nuts') :
 		items = items.get('nuts')
+	if filters.get('q') :
+		items = items.filter(name__istartswith=filters.get('q'))
 	
 	serializer = ItemSerializer(items , many=True , context={'request' : request})
 	return Response(serializer.data)
