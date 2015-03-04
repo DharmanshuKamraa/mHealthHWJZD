@@ -1,11 +1,19 @@
 package info.androidhive.slidingmenu;
 
+import android.app.ActionBar;
+import android.content.Context;
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
 
 public class ProfileFragment extends PreferenceFragment {
-	
-//	public ProfileFragment(){}
+
+    private Context myContext;
+    private boolean mListStyled;
+    private ActionBar mActionBar;
+    private float mActionBarHeight;
+    private int overallXScrol = 0;
+
+    //	public ProfileFragment(){}
 //
 //
 //	@Override
@@ -22,5 +30,7 @@ public class ProfileFragment extends PreferenceFragment {
 
         // Load the preferences from an XML resource
         addPreferencesFromResource(R.xml.preferences);
+        mActionBar = getActivity().getActionBar();
+
     }
 }

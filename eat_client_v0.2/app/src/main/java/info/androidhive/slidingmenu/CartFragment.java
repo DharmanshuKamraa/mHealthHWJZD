@@ -1,36 +1,70 @@
 package info.androidhive.slidingmenu;
-import java.util.ArrayList;
-import android.app.Fragment;
+
+import android.app.ActionBar;
 import android.app.ListFragment;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import info.androidhive.slidingmenu.adapter.FoodItemListAdapter;
 import info.androidhive.slidingmenu.api.FoodItemConnect;
 import info.androidhive.slidingmenu.interfaces.FoodItemAsyncResponse;
 import info.androidhive.slidingmenu.model.FoodItem;
-
-import info.androidhive.slidingmenu.api.FoodItemConnect;
+import lecho.lib.hellocharts.listener.PieChartOnValueSelectListener;
+import lecho.lib.hellocharts.model.PieChartData;
+import lecho.lib.hellocharts.model.SliceValue;
+import lecho.lib.hellocharts.util.ChartUtils;
+import lecho.lib.hellocharts.view.PieChartView;
 
 public class CartFragment extends ListFragment implements FoodItemAsyncResponse {
 
-	public CartFragment(){}
+    private PieChartView chart;
+    private PieChartData data;
+    private ActionBar mActionBar;
+
+    public CartFragment(){}
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
         Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_cart, container, false);
+
+        chart = (PieChartView) rootView.findViewById(R.id.piechart);
+        chart.setOnValueTouchListener(new ValueTouchListener());
+        chart.setCircleFillRatio(1.0f);
+        generateData();
+        mActionBar = getActivity().getActionBar();
+        mActionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#FFFFFF")));
+//        mActionBar.hide();
 //        checking change
 
-        ListView myListView = (ListView) rootView.findViewById(R.id.);
+//        ListView myListView = (ListView) rootView.findViewById(R.id.);
         return rootView;
     }
 
+    private void generateData() {
+        int numValues = 5;
+
+        List<SliceValue> values = new ArrayList<SliceValue>();
+        for (int i = 0; i < numValues; ++i) {
+            SliceValue sliceValue = new SliceValue((float) Math.random() * 30 + 15, ChartUtils.pickColor());
+            values.add(sliceValue);
+        }
+
+        data = new PieChartData(values);
+        data.setHasLabels(true);
+        chart.setPieChartData(data);
+    }
 
     public void getFoodList() {
         FoodItemConnect f = new FoodItemConnect();
@@ -66,6 +100,21 @@ public class CartFragment extends ListFragment implements FoodItemAsyncResponse 
 
     }
     public void processFailed(String s) {
+
+    }
+
+    private class ValueTouchListener implements PieChartOnValueSelectListener {
+
+        @Override
+        public void onValueSelected(int arcIndex, SliceValue value) {
+            Toast.makeText(getActivity(), "Selected: " + value, Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void onValueDeselected() {
+            // TODO Auto-generated method stub
+
+        }
 
     }
 }

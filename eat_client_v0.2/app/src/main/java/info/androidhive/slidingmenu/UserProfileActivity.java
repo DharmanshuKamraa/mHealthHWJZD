@@ -1,5 +1,6 @@
 package info.androidhive.slidingmenu;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
@@ -42,6 +43,7 @@ public class UserProfileActivity extends Activity {
     private static final String JPEG_FILE_PREFIX = "IMG_";
     private static final String JPEG_FILE_SUFFIX = ".jpg";
     private boolean isTakenFromCamera;
+    private ActionBar mActionBar;
 
     public void onSaveClicked(View v) {
         // Save profile
@@ -313,5 +315,7 @@ public class UserProfileActivity extends Activity {
         if(savedInstanceState != null)
             mImageCaptureUri = savedInstanceState.getParcelable(URI_INSTANCE_STATE_KEY);
         loadProfile();
+        mActionBar = getActionBar();
+        mActionBar.hide();
     }
 }

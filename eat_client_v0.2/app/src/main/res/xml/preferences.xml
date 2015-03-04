@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-    <PreferenceCategory
+    <info.androidhive.slidingmenu.MyPreferenceCategory
         android:title="@string/account"
         >
 
@@ -21,9 +21,9 @@
             android:title="@string/privacy_setting"
             android:summary="@string/summary_privacy_setting" />
 
-    </PreferenceCategory>
+    </info.androidhive.slidingmenu.MyPreferenceCategory>
 
-    <PreferenceCategory
+    <info.androidhive.slidingmenu.MyPreferenceCategory
         android:title="@string/personalize">
 
         <ListPreference
@@ -45,9 +45,9 @@
             android:title="@string/title_weight"
             android:dialogTitle="@string/dialog_title_weight" />
 
-    </PreferenceCategory>
+    </info.androidhive.slidingmenu.MyPreferenceCategory>
 
-    <PreferenceCategory
+    <info.androidhive.slidingmenu.MyPreferenceCategory
         android:title="@string/goals">
         <ListPreference
             android:key="goals"
@@ -58,5 +58,5 @@
             android:defaultValue="lose"
             android:dialogTitle="@string/dialog_title_goal" />
 
-    </PreferenceCategory>
+    </info.androidhive.slidingmenu.MyPreferenceCategory>
 </PreferenceScreen>
