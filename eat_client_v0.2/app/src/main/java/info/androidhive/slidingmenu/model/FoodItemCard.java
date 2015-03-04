@@ -85,10 +85,13 @@ public class FoodItemCard extends Card {
         TextView sellerView = (TextView) parent.findViewById(R.id.seller);
 
         if (mTitle!=null)
-            sellerView.setText("SELLER :- " + mSeller);
+            sellerView.setText("SELLER : " + mSeller);
 
         TextView titleView = (TextView) parent.findViewById(R.id.title);
         titleView.setText(mTitle);
+
+        TextView priceView = (TextView) parent.findViewById(R.id.price);
+        priceView.setText("PRICE : " + mPrice + "$");
 
         Button buttonView = (Button) parent.findViewById(R.id.btn_add_to_cart);
         if (mIsCarted == true) {
@@ -103,14 +106,15 @@ public class FoodItemCard extends Card {
                 if (mIsCarted == false) {
                     v.setBackgroundResource(R.drawable.ok);
                     mIsCarted = true;
+                    Toast.makeText(getContext(), mTitle + "has been added to your cart.", Toast.LENGTH_SHORT).show();
                 } else {
                     v.setBackgroundResource(R.drawable.plus);
                     mIsCarted = false;
+                    Toast.makeText(getContext(), mTitle + "has been removed from your cart.", Toast.LENGTH_SHORT).show();
                 }
             }
         });
 
-//
 //        if (mSecondaryTitle!=null)
 //            mSecondaryTitle.setText(R.string.demo_custom_card_googleinc);
 //

@@ -69,22 +69,28 @@
                 >
 
                 <TextView
+                    android:id="@+id/price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight=".60"
+                    android:text="Price : 200$"
+                    android:textSize="20dp"
+                />
+
+                <TextView
                     android:id="@+id/seller"
-                    android:layout_width="140dp"
-                    android:layout_height="wrap_content"
+                    android:layout_width="180dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="0.20"
                     android:text="SELLER : sadasads"
                 />
-                <TextView
-                    android:id="@+id/price"
-                    android:layout_width="120dp"
-                    android:layout_height="wrap_content"
-                    android:text="Price : 200$"
-                />
+
                 <TextView
                     android:id="@+id/savings"
                     android:layout_width="120dp"
-                    android:layout_height="wrap_content"
-                    android:text="You save : 20$"
+                    android:layout_height="0dp"
+                    android:layout_weight="0.20"
+                    android:text="YOU SAVE : 20$"
                 />
 
             </LinearLayout>
@@ -97,7 +103,6 @@
                 android:background="@drawable/plus"
                 android:textColor="#fff"
                 android:layout_alignParentRight="true"
-
             />
         </RelativeLayout>
 

@@ -82,6 +82,8 @@ class Item(TimeStampedModel):
 	gluten = models.BooleanField()
 	eggs = models.BooleanField()
 	
+	def price_to_float(self):
+		return self
 	def __unicode__(self) :
 		return self.name
 	
