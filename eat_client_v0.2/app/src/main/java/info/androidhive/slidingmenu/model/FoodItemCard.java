@@ -1,17 +1,27 @@
 package info.androidhive.slidingmenu.model;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.io.InputStream;
+import java.net.URL;
+import java.net.URLEncoder;
 
 import info.androidhive.slidingmenu.R;
 import it.gmariotti.cardslib.library.internal.Card;
 import it.gmariotti.cardslib.library.internal.CardExpand;
 import it.gmariotti.cardslib.library.internal.ViewToClickToExpand;
+
 
 /**
  * Created by Dharmanshu on 3/3/15.
@@ -24,6 +34,9 @@ public class FoodItemCard extends Card {
     protected Long mId;
     protected Boolean mIsCarted;
     protected Boolean mIsExpanded = false;
+    protected String mImageUrl;
+    protected Bitmap mDrawableImage;
+    protected Boolean imageSet = false;
 
     /**
      * Constructor with a custom inner layout
@@ -33,20 +46,19 @@ public class FoodItemCard extends Card {
         this(context, R.layout.food_item_card);
     }
 
-    public void setParams(Long id, String title , String seller , String price , int isCarted) {
-        Log.i("carted" , Integer.toString(isCarted));
-
+    public void setParams(Long id, String title , String seller , String price , int isCarted , String imageUrl) {
         this.mId = id;
         this.mTitle = title;
         this.mSeller= seller;
         this.mPrice = price;
+        this.mImageUrl = imageUrl;
+        Log.i("image_url" , mImageUrl);
 
         if (isCarted == 0) {
             this.mIsCarted = false;
         } else {
             this.mIsCarted = true;
         }
-        Log.i("carted" , Boolean.toString(mIsCarted));
     }
 
     /**
@@ -77,6 +89,7 @@ public class FoodItemCard extends Card {
 
     @Override
     public void setupInnerViewElements(ViewGroup parent, View view) {
+
         ViewToClickToExpand viewToClickToExpand = ViewToClickToExpand.builder().setupView(view);
         this.setViewToClickToExpand(viewToClickToExpand);
 
@@ -94,6 +107,18 @@ public class FoodItemCard extends Card {
         priceView.setText("PRICE : " + mPrice + "$");
 
         Button buttonView = (Button) parent.findViewById(R.id.btn_add_to_cart);
+
+        ImageView imageView = (ImageView) parent.findViewById(R.id.card_thumbnail_image);
+
+        if (!imageSet) {
+            DownloadImageTask downloadImageTask = new DownloadImageTask(imageView);
+            downloadImageTask.execute(mImageUrl);
+            imageView.setImageResource(R.drawable.cart_red);
+        } else {
+            imageView.setImageBitmap(mDrawableImage);
+        }
+//
+
         if (mIsCarted == true) {
             buttonView.setBackgroundResource(R.drawable.ok);
         } else {
@@ -124,4 +149,35 @@ public class FoodItemCard extends Card {
 //        mRatingBar.setRating(4.7f);
 
     }
+
+    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+        ImageView bmImage;
+
+        public DownloadImageTask(ImageView bmImage) {
+            this.bmImage = bmImage;
+        }
+
+        protected Bitmap doInBackground(String... urls) {
+            String urldisplay = urls[0];
+            Log.i("downloading" , urls[0]);
+
+            Bitmap mIcon11 = null;
+            try {
+                mIcon11 = BitmapFactory.decodeStream((InputStream) new URL(urls[0].replaceAll(" ", "%20")).getContent());
+            } catch (Exception e) {
+                Log.e("Error", e.getMessage());
+                e.printStackTrace();
+            }
+            return mIcon11;
+        }
+
+        protected void onPostExecute(Bitmap result) {
+            if (imageSet == false) {
+                bmImage.setImageBitmap(result);
+                imageSet = true;
+                mDrawableImage = result;
+            }
+        }
+    }
+
 }

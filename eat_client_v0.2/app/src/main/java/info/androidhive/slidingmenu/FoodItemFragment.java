@@ -117,7 +117,8 @@ public class FoodItemFragment extends Fragment implements FoodItemAsyncResponse 
                             jsonObject.getString("name") ,
                             "Co Op Hanover." ,
                             jsonObject.getString("price") ,
-                            jsonObject.getInt("check_carted_by_user")
+                            jsonObject.getInt("check_carted_by_user") ,
+                            jsonObject.getString("image_url")
                 );
 
                 CustomCardExapander cardExpand = new CustomCardExapander(getActivity());

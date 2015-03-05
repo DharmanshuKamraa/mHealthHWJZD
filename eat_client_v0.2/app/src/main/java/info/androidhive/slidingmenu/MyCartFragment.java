@@ -76,7 +76,8 @@ public class MyCartFragment extends Fragment implements FoodItemAsyncResponse {
                         jsonObject.getString("name") ,
                         "Co Op Hanover." ,
                         jsonObject.getString("price") ,
-                        jsonObject.getInt("check_carted_by_user")
+                        jsonObject.getInt("check_carted_by_user") ,
+                        jsonObject.getString("image_url")
                 );
                 cards.add(card);
             }
