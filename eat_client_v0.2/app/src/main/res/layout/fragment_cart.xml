@@ -1,159 +1,157 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content" >
-    <LinearLayout
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:background="#F0F0F5" >
 
-    <LinearLayout
-        android:layout_marginTop="5dp"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:id="@+id/linearLayout1">
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/relativeLayout1"
+        >
 
-        <TextView
-            android:layout_width="100dip"
-            android:layout_height="wrap_content"
-            android:text="Diary"
-            android:textSize="20sp" />
 
         <ProgressBar
-            style="?android:attr/progressBarStyleHorizontal"
-            android:layout_width="fill_parent"
-            android:layout_height="match_parent"
+            style="@style/categoryBar"
             android:id="@+id/progressBar1"
-            android:paddingLeft="10dp"
-            android:paddingRight="30dp"
-            android:layout_marginBottom = "5dp"
-            android:max="100"
-            android:progress="70"
+            android:layout_marginTop="20dp"
+            android:progress="23"
+            android:progressDrawable="@drawable/progressbar7"
+            android:indeterminate="false"/>
+
+        <TextView
+            style="@style/categoryName"
+            android:text="Diary"
+            android:layout_marginTop="20dp"
+            android:id="@+id/textView1"
+            android:textColor="#FFFFFF"
+            android:layout_alignLeft="@id/progressBar1"
+            android:layout_alignBottom="@id/progressBar1"/>
+
+        <ProgressBar
+            style="@style/categoryBar2"
+            android:id="@+id/progressBar11"
+            android:layout_marginTop="20dp"
+            android:progress="85"
             android:progressDrawable="@drawable/progressbar2"
-            android:indeterminate="false" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:id="@+id/linearLayout2"
-        android:layout_below="@+id/linearLayout1">
-
-        <TextView
-            android:layout_width="100dip"
-            android:layout_height="wrap_content"
-            android:text="Fruit"
-            android:textSize="20sp" />
+            android:indeterminate="false"
+            android:layout_toRightOf="@id/textView1"/>
 
         <ProgressBar
-            style="?android:attr/progressBarStyleHorizontal"
-            android:layout_width="fill_parent"
-            android:layout_height="match_parent"
+            style="@style/categoryBar"
             android:id="@+id/progressBar2"
-            android:paddingLeft="10dp"
-            android:paddingRight="30dp"
-            android:layout_marginBottom = "5dp"
-            android:max="100"
-            android:progress="50"
-            android:progressDrawable="@drawable/progressbar6"
-            android:indeterminate="false" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:id="@+id/linearLayout4"
-        android:layout_below="@+id/linearLayout2"
-        android:weightSum="1">
+            android:progress="23"
+            android:progressDrawable="@drawable/progressbar7"
+            android:indeterminate="false"
+            android:layout_below="@id/progressBar1"/>
 
         <TextView
-            android:layout_width="100dip"
-            android:layout_height="wrap_content"
-            android:text="Protein"
-            android:textSize="20sp" />
+            style="@style/categoryName"
+            android:text="Fruit"
+            android:layout_marginTop="20dp"
+            android:id="@+id/textView2"
+            android:textColor="#FFFFFF"
+            android:layout_alignLeft="@id/progressBar2"
+            android:layout_alignBottom="@id/progressBar2"/>
 
         <ProgressBar
-            style="?android:attr/progressBarStyleHorizontal"
-            android:layout_width="fill_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/progressBar3"
-            android:paddingLeft="10dp"
-            android:paddingRight="30dp"
-            android:max="100"
-            android:progress="50"
-            android:layout_marginBottom = "5dp"
+            style="@style/categoryBar2"
+            android:id="@+id/progressBar22"
+            android:progress="72"
             android:progressDrawable="@drawable/progressbar3"
-            android:indeterminate="false" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:id="@+id/linearLayout5"
-        android:layout_below="@+id/linearLayout2"
-        android:weightSum="1">
-
-        <TextView
-            android:layout_width="100dip"
-            android:layout_height="wrap_content"
-            android:text="Grains"
-            android:textSize="20sp" />
+            android:indeterminate="false"
+            android:layout_toRightOf="@id/textView2"
+            android:layout_below="@id/progressBar11"/>
 
         <ProgressBar
-            style="?android:attr/progressBarStyleHorizontal"
-            android:layout_width="fill_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/progressBar4"
-            android:paddingLeft="10dp"
-            android:paddingRight="30dp"
-            android:max="100"
-            android:progress="50"
-            android:layout_marginBottom = "5dp"
+            style="@style/categoryBar"
+            android:id="@+id/progressBar3"
+            android:progress="23"
+            android:progressDrawable="@drawable/progressbar7"
+            android:indeterminate="false"
+            android:layout_below="@id/progressBar2"/>
+
+        <TextView
+            style="@style/categoryName"
+            android:text="Protein"
+            android:layout_marginTop="20dp"
+            android:id="@+id/textView3"
+            android:textColor="#FFFFFF"
+            android:layout_alignLeft="@id/progressBar2"
+            android:layout_alignBottom="@id/progressBar3"/>
+
+        <ProgressBar
+            style="@style/categoryBar2"
+            android:id="@+id/progressBar33"
+            android:progress="94"
             android:progressDrawable="@drawable/progressbar4"
-            android:indeterminate="false" />
+            android:indeterminate="false"
+            android:layout_toRightOf="@id/textView3"
+            android:layout_below="@id/progressBar22"/>
 
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:id="@+id/linearLayout3"
-        android:layout_below="@+id/linearLayout2"
-        android:weightSum="1">
-
-        <TextView
-            android:layout_width="100dip"
-            android:layout_height="wrap_content"
-            android:text="Vegetables"
-            android:textSize="20sp" />
 
         <ProgressBar
-            style="?android:attr/progressBarStyleHorizontal"
-            android:layout_width="fill_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/progressBar5"
-            android:paddingLeft="10dp"
-            android:paddingRight="30dp"
-            android:max="100"
-            android:progress="60"
-            android:layout_marginBottom = "5dp"
-            android:progressDrawable="@drawable/progressbar5"
-            android:indeterminate="false" />
+            style="@style/categoryBar"
+            android:id="@+id/progressBar4"
+            android:progress="23"
+            android:progressDrawable="@drawable/progressbar7"
+            android:indeterminate="false"
+            android:layout_below="@id/progressBar3"/>
 
-    </LinearLayout>
+        <TextView
+            style="@style/categoryName"
+            android:text="Grain"
+            android:layout_marginTop="20dp"
+            android:id="@+id/textView4"
+            android:textColor="#FFFFFF"
+            android:layout_alignLeft="@id/progressBar3"
+            android:layout_alignBottom="@id/progressBar4"/>
+
+        <ProgressBar
+            style="@style/categoryBar2"
+            android:id="@+id/progressBar44"
+            android:progress="78"
+            android:progressDrawable="@drawable/progressbar5"
+            android:indeterminate="false"
+            android:layout_toRightOf="@id/textView4"
+            android:layout_below="@id/progressBar33"/>
+
+
+        <ProgressBar
+            style="@style/categoryBar"
+            android:id="@+id/progressBar5"
+            android:progress="23"
+            android:progressDrawable="@drawable/progressbar7"
+            android:indeterminate="false"
+            android:layout_below="@id/progressBar4"/>
+
+        <TextView
+            style="@style/categoryName"
+            android:text="Veggie"
+            android:layout_marginTop="20dp"
+            android:id="@+id/textView5"
+            android:textColor="#FFFFFF"
+            android:layout_alignLeft="@id/progressBar4"
+            android:layout_alignBottom="@id/progressBar5"/>
+
+        <ProgressBar
+            style="@style/categoryBar2"
+            android:id="@+id/progressBar55"
+            android:progress="69"
+            android:progressDrawable="@drawable/progressbar6"
+            android:indeterminate="false"
+            android:layout_toRightOf="@id/textView5"
+            android:layout_below="@id/progressBar44"/>
+
+
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:id="@+id/lin1"
+        android:layout_below="@id/textView5"
         >
 
         <ListView
@@ -168,9 +166,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:id="@+id/lin2"
+        android:layout_below="@id/lin1">
 
-        <!-- TODO: Update blank fragment layout -->
+         TODO: Update blank fragment layout
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -194,19 +194,21 @@
             />
     </LinearLayout>
 
-    <!--<LinearLayout-->
-        <!--android:layout_width="fill_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_gravity="bottom">-->
-        <!--<Button-->
-            <!--android:id="@+id/takePicture_button"-->
-            <!--android:layout_width="0dp"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_margin="5dp"-->
-            <!--android:layout_weight="1"-->
-            <!--android:onClick="onPictureClicked"-->
-            <!--android:text="@string/button_suggest" />-->
-    <!--</LinearLayout>-->
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_below="@id/lin2">
 
-</LinearLayout>
+        <Button
+            android:id="@+id/takePicture_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:onClick="onPictureClicked"
+            android:text="@string/button_suggest" />
+    </LinearLayout>
+
+    </RelativeLayout>
     </ScrollView>

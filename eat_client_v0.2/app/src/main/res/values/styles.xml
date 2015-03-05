@@ -39,4 +39,50 @@
         <item name="android:textSize">20dp</item>
     </style>
 
+    <style name="categoryName">
+        <item name="android:layout_width">100dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:paddingLeft">20dp</item>
+        <item name="android:paddingBottom">3dip</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="categoryBar" parent="@android:style/Widget.ProgressBar.Horizontal">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">30dp</item>
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingRight">10dp</item>
+        <item name="android:layout_marginBottom">5dp</item>
+        <item name="android:max">100</item>
+        <item name="android:indeterminate">false</item>
+    </style>
+
+    <style name="categoryBar2" parent="@android:style/Widget.ProgressBar.Horizontal">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">30dp</item>
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingRight">25dp</item>
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:paddingBottom">10dp</item>
+        <item name="android:layout_marginBottom">5dp</item>
+        <item name="android:max">100</item>
+        <item name="android:indeterminate">false</item>
+    </style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </resources>
