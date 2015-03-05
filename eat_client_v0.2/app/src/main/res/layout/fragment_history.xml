@@ -9,9 +9,25 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="#fff"
-    android:scrollbarAlwaysDrawVerticalTrack="true"
     android:paddingTop="10dp"
     >
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="AVERAGE CART COMPLETION "
+        style="@style/customHeading"
+        android:paddingLeft="10dp"
+        android:textSize="30dp"/>
+
+
+    <lecho.lib.hellocharts.view.ColumnChartView
+        android:id="@+id/chart"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginTop="20dp"
+        >
+    </lecho.lib.hellocharts.view.ColumnChartView>
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

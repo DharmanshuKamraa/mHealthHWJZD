@@ -17,7 +17,7 @@
             <!--android:layout_alignParentLeft="true"-->
             <!--/>-->
             <TextView
-                android:id="@+id/txt_progress_view"
+                android:id="@+id/txt_progress_vie"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="PROGRESS"
@@ -49,7 +49,7 @@
 
                     <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
                         android:layout_width="match_parent"
-                        android:layout_height="50dp"
+                        android:layout_height="25dp"
                         app:backgroundPadding="4dp"
                         android:id="@+id/progressBar1"
                         app:backgroundRadius="15dp"

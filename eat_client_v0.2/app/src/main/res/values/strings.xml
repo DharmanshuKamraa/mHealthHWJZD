@@ -25,7 +25,7 @@
         <item>@drawable/ic_explore</item>
         <item>@drawable/ic_history</item>
         <!--<item>@drawable/ic_whats_hot</item>-->
-        <item>@drawable/ic_pages</item>
+        <item>@drawable/ic_suggest</item>
         <item>@drawable/ic_profile</item>
         <!--<item>@drawable/ic_whats_hot</item>-->
     </array>
