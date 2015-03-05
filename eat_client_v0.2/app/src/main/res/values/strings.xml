@@ -44,7 +44,7 @@
     <string name="privacy_setting">Privacy setting</string>
     <string name="summary_user_profile">Name, Email, pwd, etc</string>
     <string name="summary_privacy_setting">Posting your records anonymously</string>
-    <string name="title_activity_login">LoginActivity</string>
+    <string name="title_activity_login">SmartCart</string>
     <string name="btn_login_sign_in">LOGIN</string>
     <string name="btn_login_sign_up">SIGN UP</string>
     <string name="title_activity_sign_up">SignUp</string>
