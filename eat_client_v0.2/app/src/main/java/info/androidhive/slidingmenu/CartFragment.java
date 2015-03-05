@@ -7,24 +7,21 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
-import android.widget.Toast;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import info.androidhive.slidingmenu.adapter.FoodItemListAdapter;
 import info.androidhive.slidingmenu.api.FoodItemConnect;
 import info.androidhive.slidingmenu.interfaces.FoodItemAsyncResponse;
 import info.androidhive.slidingmenu.model.FoodItem;
-import lecho.lib.hellocharts.listener.PieChartOnValueSelectListener;
 import lecho.lib.hellocharts.model.PieChartData;
-import lecho.lib.hellocharts.model.SliceValue;
-import lecho.lib.hellocharts.util.ChartUtils;
 import lecho.lib.hellocharts.view.PieChartView;
 
 public class CartFragment extends ListFragment implements FoodItemAsyncResponse {
@@ -39,11 +36,6 @@ public class CartFragment extends ListFragment implements FoodItemAsyncResponse 
         Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_cart, container, false);
 
-
-        chart = (PieChartView) rootView.findViewById(R.id.piechart);
-        chart.setOnValueTouchListener(new ValueTouchListener());
-        chart.setCircleFillRatio(1.0f);
-        generateData();
         mActionBar = getActivity().getActionBar();
         mActionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#FFFFFF")));
 //        mActionBar.hide();
@@ -53,19 +45,28 @@ public class CartFragment extends ListFragment implements FoodItemAsyncResponse 
         return rootView;
     }
 
-    private void generateData() {
-        int numValues = 5;
-
-        List<SliceValue> values = new ArrayList<SliceValue>();
-        for (int i = 0; i < numValues; ++i) {
-            SliceValue sliceValue = new SliceValue((float) Math.random() * 30 + 15, ChartUtils.pickColor());
-            values.add(sliceValue);
-        }
-
-        data = new PieChartData(values);
-        data.setHasLabels(true);
-        chart.setPieChartData(data);
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
     }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.suggest_menu, menu);
+    }
+
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        return super.onOptionsItemSelected(item);
+//        switch (item.getItemId()) {
+//            case R.id.explore_fragment:
+//                return true;
+//            default:
+//                return super.onOptionsItemSelected(item);
+//        }
+//    }
 
     public void getFoodList() {
         FoodItemConnect f = new FoodItemConnect();
@@ -104,18 +105,4 @@ public class CartFragment extends ListFragment implements FoodItemAsyncResponse 
 
     }
 
-    private class ValueTouchListener implements PieChartOnValueSelectListener {
-
-        @Override
-        public void onValueSelected(int arcIndex, SliceValue value) {
-            Toast.makeText(getActivity(), "Selected: " + value, Toast.LENGTH_SHORT).show();
-        }
-
-        @Override
-        public void onValueDeselected() {
-            // TODO Auto-generated method stub
-
-        }
-
-    }
 }

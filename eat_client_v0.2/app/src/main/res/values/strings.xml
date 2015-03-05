@@ -12,7 +12,7 @@
         <item>Smart Cart</item>
         <item>Explore</item>
         <item>History</item>
-        <item>discount</item>
+        <!--<item>discount</item>-->
         <item>My Cart</item>
         <item>Profile</item>
         <!--<item>Check</item>-->
@@ -24,7 +24,7 @@
         <item>@drawable/ic_cart_loaded</item>
         <item>@drawable/ic_explore</item>
         <item>@drawable/ic_history</item>
-        <item>@drawable/ic_whats_hot</item>
+        <!--<item>@drawable/ic_whats_hot</item>-->
         <item>@drawable/ic_pages</item>
         <item>@drawable/ic_profile</item>
         <!--<item>@drawable/ic_whats_hot</item>-->
@@ -92,5 +92,6 @@
     <string name="title_activity_display_map">Map</string>
     <string name="button_suggest">SUGGEST</string>
     <string name="button_cancel">CANCLE</string>
+    <string name="menu_suggest">to be healthier :)</string>
 
 </resources>

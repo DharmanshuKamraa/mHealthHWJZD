@@ -1,41 +1,31 @@
 package info.androidhive.slidingmenu;
 
-import android.app.Activity;
-import android.app.ListFragment;
-import android.net.Uri;
-import android.os.Bundle;
 import android.app.Fragment;
-import android.support.v7.widget.CardView;
+import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.FormatFlagsConversionMismatchException;
 
-import info.androidhive.slidingmenu.adapter.FoodItemListAdapter;
 import info.androidhive.slidingmenu.api.FoodItemConnect;
 import info.androidhive.slidingmenu.interfaces.FoodItemAsyncResponse;
-import info.androidhive.slidingmenu.model.FoodItem;
 import info.androidhive.slidingmenu.model.FoodItemCard;
 import info.androidhive.slidingmenu.utils.CustomCardExapander;
 import it.gmariotti.cardslib.library.internal.Card;
 import it.gmariotti.cardslib.library.internal.CardArrayAdapter;
-import it.gmariotti.cardslib.library.internal.CardExpand;
-import it.gmariotti.cardslib.library.internal.CardHeader;
-import it.gmariotti.cardslib.library.internal.CardThumbnail;
 import it.gmariotti.cardslib.library.view.CardListView;
-import it.gmariotti.cardslib.library.view.component.CardThumbnailView;
 
 
 /**
@@ -70,6 +60,29 @@ public class FoodItemFragment extends Fragment implements FoodItemAsyncResponse 
 //        food_type_spinner.setAdapter(adapter);
         setInitialAdapter();
         return rootView;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.sort_menu, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        return super.onOptionsItemSelected(item);
+//        switch (item.getItemId()) {
+//            case R.id.sort_it1:
+//                return true;
+//            default:
+//                return super.onOptionsItemSelected(item);
+//        }
     }
 
     public void setInitialAdapter() {

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/sort_menu"
+        android:showAsAction="always"
+        android:title="here"
+        android:icon="@drawable/ic_sort"
+        android:titleCondensed="sort">
+        <menu>
+
+            <item
+                android:id="@+id/sort_it1"
+                android:title="price"/>
+            <item
+                android:id="@+id/sort_it2"
+                android:title="calorie"/>
+            <item
+                android:id="@+id/sort_it3"
+                android:title="protein"/>
+        </menu>
+
+    </item>
+
+</menu>
