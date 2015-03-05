@@ -10,7 +10,7 @@ class UserSerializer(serializers.ModelSerializer):
 class ItemSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = Item
-		fields = ('id' , 'name' , 'store' , 'created' , 'price' , 'check_carted_by_user')
+		fields = ('id' , 'name' , 'store' , 'created' , 'price' , 'check_carted_by_user' , 'image_url')
 		
 	def to_native(self , obj):
 		serialized_obj = super(ItemSerializer , self).to_native(obj)

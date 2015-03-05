@@ -15,6 +15,9 @@ from model_utils import Choices
 from django_extensions.db.models import TimeStampedModel
 from django.conf import settings
 
+def food_item_upload_to(instance, filename):
+	return 'food_item/{}.{}'.format(instance.name, filename.split('.')[-1])
+
 class User(AbstractUser):
 	TYPE = Choices(("STORE" , 'SELLER') , ("USER" , 'USER'))
 	type  = models.CharField('type' ,
@@ -60,6 +63,7 @@ class Item(TimeStampedModel):
 								default = TYPE.VEGETABLES
 								)
 	store = models.ForeignKey('Store')
+	
 	price = models.CharField(_('Price') ,
 								max_length = 255 ,
 								null = False ,
@@ -69,6 +73,14 @@ class Item(TimeStampedModel):
 										max_length = 255 ,
 										null = True
 										)
+	image = models.ImageField(_('Cover Image'),
+									upload_to=food_item_upload_to,
+									blank = True ,
+									null = False
+									)
+	def image_url(self):
+		return 'http://ec2-54-191-192-216.us-west-2.compute.amazonaws.com:8001/media/' + str(self.image)
+	
 	# calories = models.CharField('')
 	CATEGORIES = (
 				'VEGETABLE', 
