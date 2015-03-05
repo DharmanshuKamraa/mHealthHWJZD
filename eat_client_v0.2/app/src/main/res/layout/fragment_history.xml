@@ -10,6 +10,16 @@
     android:orientation="vertical"
     android:background="#fff"
     android:scrollbarAlwaysDrawVerticalTrack="true">
+
+    <lecho.lib.hellocharts.view.ColumnChartView
+        android:id="@+id/chart"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginTop="20dp"
+        >
+    </lecho.lib.hellocharts.view.ColumnChartView>
+
+
     <lecho.lib.hellocharts.view.LineChartView
         android:id="@+id/linechart"
         android:layout_margin="15dp"
