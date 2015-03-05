@@ -11,6 +11,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -46,6 +49,18 @@ public class MyCartFragment extends Fragment implements FoodItemAsyncResponse {
         return rootView;
     }
 
+    public void setProgressButtonClick() {
+        TextView progress_view = (TextView) getActivity().findViewById(R.id.txt_progress_view);
+        progress_view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getActivity() , "Checking" , Toast.LENGTH_LONG);
+                LinearLayout linearLayout = (LinearLayout) getActivity().findViewById(R.id.progress_view);
+                linearLayout.animate().translationY(-1*linearLayout.getHeight()).alpha(0);
+            }
+        });
+    }
+
     public void setInitialAdapter() {
         FoodItemConnect f = new FoodItemConnect();
         f.delegate = this;
@@ -66,6 +81,8 @@ public class MyCartFragment extends Fragment implements FoodItemAsyncResponse {
 
     public void processItemListFetched(String s) {
 //        ArrayList<FoodItem> foodItems = new ArrayList<FoodItem>();
+        Log.i("checking" , "here is");
+
         ArrayList<Card> cards = new ArrayList<Card>();
         try {
             JSONArray jsonListItems = new JSONArray(s);

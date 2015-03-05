@@ -234,4 +234,5 @@ public class HistoryFragment extends Fragment implements ApiAsyncResponse {
     public void processFailed(String s) {
         Log.i("PROCESS FAILED" , s);
     }
+
 }
