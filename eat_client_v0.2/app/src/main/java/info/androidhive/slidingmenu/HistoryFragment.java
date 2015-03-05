@@ -17,18 +17,22 @@ import java.util.List;
 import info.androidhive.slidingmenu.api.ServerConnect;
 import info.androidhive.slidingmenu.interfaces.ApiAsyncResponse;
 import lecho.lib.hellocharts.listener.LineChartOnValueSelectListener;
+import lecho.lib.hellocharts.listener.PieChartOnValueSelectListener;
 import lecho.lib.hellocharts.model.Axis;
 import lecho.lib.hellocharts.model.Line;
 import lecho.lib.hellocharts.model.LineChartData;
+import lecho.lib.hellocharts.model.PieChartData;
 import lecho.lib.hellocharts.model.PointValue;
+import lecho.lib.hellocharts.model.SliceValue;
 import lecho.lib.hellocharts.model.ValueShape;
 import lecho.lib.hellocharts.model.Viewport;
 import lecho.lib.hellocharts.util.ChartUtils;
 import lecho.lib.hellocharts.view.LineChartView;
+import lecho.lib.hellocharts.view.PieChartView;
 
 public class HistoryFragment extends Fragment implements ApiAsyncResponse {
-    private LineChartView chart;
-    private LineChartData data;
+    private LineChartView linechart;
+    private LineChartData linedata;
     private int numberOfLines = 4;
     private int maxNumberOfLines = 4;
     private int numberOfPoints = 12;
@@ -44,6 +48,8 @@ public class HistoryFragment extends Fragment implements ApiAsyncResponse {
     private boolean hasLabelForSelected = false;
 
     float[][] randomNumbersTab = new float[maxNumberOfLines][numberOfPoints];
+    private PieChartView piechart;
+    private PieChartData piedata;
 
     public HistoryFragment(){}
 
@@ -57,16 +63,22 @@ public class HistoryFragment extends Fragment implements ApiAsyncResponse {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_history, container, false);
-        chart = (LineChartView) rootView.findViewById(R.id.chart);
-        chart.setOnValueTouchListener(new ValueTouchListener());
+        linechart = (LineChartView) rootView.findViewById(R.id.linechart);
+        linechart.setOnValueTouchListener(new LineChartValueTouchListener());
         // Generate some random values.
-        generateValues();
-        generateData();
+        generateValuesforLine();
+        generateDataforLine();
+
+        piechart = (PieChartView) rootView.findViewById(R.id.piechart);
+        piechart.setOnValueTouchListener(new PieChartValueTouchListener());
+        piechart.setCircleFillRatio(1.0f);
+
+        generateDataforPie();
 
         fetchHistoryParams();
 
         // Disable viewpirt recalculations, see toggleCubic() method for more info.
-        chart.setViewportCalculationEnabled(false);
+        linechart.setViewportCalculationEnabled(false);
 
         resetViewport();
 
@@ -80,7 +92,7 @@ public class HistoryFragment extends Fragment implements ApiAsyncResponse {
         s.execute("GET" ,"fetch_history_params" , "");
     }
 
-    private void generateValues() {
+    private void generateValuesforLine() {
         for (int i = 0; i < maxNumberOfLines; ++i) {
             for (int j = 0; j < numberOfPoints; ++j) {
                 randomNumbersTab[i][j] = (float) Math.random() * 100f;
@@ -90,16 +102,16 @@ public class HistoryFragment extends Fragment implements ApiAsyncResponse {
 
     private void resetViewport() {
         // Reset viewport height range to (0,100)
-        final Viewport v = new Viewport(chart.getMaximumViewport());
+        final Viewport v = new Viewport(linechart.getMaximumViewport());
         v.bottom = 0;
         v.top = 100;
         v.left = 0;
         v.right = numberOfPoints -1;
-        chart.setMaximumViewport(v);
-        chart.setCurrentViewport(v);
+        linechart.setMaximumViewport(v);
+        linechart.setCurrentViewport(v);
     }
 
-    private void generateData() {
+    private void generateDataforLine() {
 
         List<Line> lines = new ArrayList<Line>();
         for (int i = 0; i < numberOfLines; ++i) {
@@ -121,7 +133,7 @@ public class HistoryFragment extends Fragment implements ApiAsyncResponse {
             lines.add(line);
         }
 
-        data = new LineChartData(lines);
+        linedata = new LineChartData(lines);
 
         if (hasAxes) {
             Axis axisX = new Axis();
@@ -131,18 +143,32 @@ public class HistoryFragment extends Fragment implements ApiAsyncResponse {
                 axisX.setName("Carts");
                 axisY.setName("Percentage Completed");
             }
-            data.setAxisXBottom(axisX);
-            data.setAxisYLeft(axisY);
+            linedata.setAxisXBottom(axisX);
+            linedata.setAxisYLeft(axisY);
         } else {
-            data.setAxisXBottom(null);
-            data.setAxisYLeft(null);
+            linedata.setAxisXBottom(null);
+            linedata.setAxisYLeft(null);
         }
 
 //        data.setBaseValue(Float.NEGATIVE_INFINITY);
-        chart.setLineChartData(data);
+        linechart.setLineChartData(linedata);
     }
 
-    private class ValueTouchListener implements LineChartOnValueSelectListener {
+    private void generateDataforPie() {
+        int numValues = 5;
+
+        List<SliceValue> values = new ArrayList<SliceValue>();
+        for (int i = 0; i < numValues; ++i) {
+            SliceValue sliceValue = new SliceValue((float) Math.random() * 30 + 15, ChartUtils.pickColor());
+            values.add(sliceValue);
+        }
+
+        piedata = new PieChartData(values);
+        piedata.setHasLabels(true);
+        piechart.setPieChartData(piedata);
+    }
+
+    private class LineChartValueTouchListener implements LineChartOnValueSelectListener {
 
         @Override
         public void onValueSelected(int lineIndex, int pointIndex, PointValue value) {
@@ -171,6 +197,21 @@ public class HistoryFragment extends Fragment implements ApiAsyncResponse {
             // TODO Auto-generated method stub
 
         }
+    }
+
+    private class PieChartValueTouchListener implements PieChartOnValueSelectListener {
+
+        @Override
+        public void onValueSelected(int arcIndex, SliceValue value) {
+            Toast.makeText(getActivity(), "Selected: " + value, Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void onValueDeselected() {
+            // TODO Auto-generated method stub
+
+        }
+
     }
 
     public void processFinished(String s){
