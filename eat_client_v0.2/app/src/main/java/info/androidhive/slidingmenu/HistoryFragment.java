@@ -35,7 +35,7 @@ public class HistoryFragment extends Fragment implements ApiAsyncResponse {
     private LineChartData linedata;
     private int numberOfLines = 4;
     private int maxNumberOfLines = 4;
-    private int numberOfPoints = 12;
+    private int numberOfPoints = 5;
 
     private boolean hasAxes = true;
     private boolean hasAxesNames = true;
@@ -117,7 +117,7 @@ public class HistoryFragment extends Fragment implements ApiAsyncResponse {
         for (int i = 0; i < numberOfLines; ++i) {
 
             List<PointValue> values = new ArrayList<PointValue>();
-            for (int j = 1; j < numberOfPoints; ++j) {
+            for (int j = 0; j < numberOfPoints; ++j) {
                 values.add(new PointValue(j, randomNumbersTab[i][j]));
             }
 
@@ -136,7 +136,8 @@ public class HistoryFragment extends Fragment implements ApiAsyncResponse {
         linedata = new LineChartData(lines);
 
         if (hasAxes) {
-            Axis axisX = new Axis();
+            Axis axisX = Axis.generateAxisFromRange(0, numberOfPoints, 1);
+
 //            axisX.
             Axis axisY = new Axis().setHasLines(true);
             if (hasAxesNames) {
@@ -185,7 +186,7 @@ public class HistoryFragment extends Fragment implements ApiAsyncResponse {
                     nutrient = "Fat";
                     break;
                 case 4:
-                    nutrient = "Vitamins";
+                    nutrient = "Greens";
                     break;
             }
 

@@ -13,6 +13,7 @@
         <item>Explore</item>
         <item>History</item>
         <!--<item>discount</item>-->
+        <item>Recommendation</item>
         <item>Profile</item>
         <!--<item>Check</item>-->
     </string-array>
