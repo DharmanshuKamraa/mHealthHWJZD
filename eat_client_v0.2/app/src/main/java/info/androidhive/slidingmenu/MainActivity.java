@@ -70,7 +70,6 @@ public class MainActivity extends Activity {
 		// Pages
 		navDrawerItems.add(new NavDrawerItem(navMenuTitles[3], navMenuIcons.getResourceId(3, -1)));
 		// What's hot, We  will add a counter here
-		navDrawerItems.add(new NavDrawerItem(navMenuTitles[4], navMenuIcons.getResourceId(4, -1)));
 //		navDrawerItems.add(new NavDrawerItem(navMenuTitles[6] , navMenuIcons.getResourceId(6,-1)));
 
 		// Recycle the typed array
@@ -201,7 +200,7 @@ public class MainActivity extends Activity {
 		Fragment fragment = null;
 		switch (position) {
 		case 0:
-			fragment = new CartFragment();
+			fragment = new MyCartFragment();
 			break;
 		case 1:
 			fragment = new FoodItemFragment();
@@ -213,9 +212,6 @@ public class MainActivity extends Activity {
 //			fragment = new DiscountFragment();
 //			break;
 		case 3:
-			fragment = new MyCartFragment();
-			break;
-		case 4:
 			fragment = new ProfileFragment();
 			break;
 

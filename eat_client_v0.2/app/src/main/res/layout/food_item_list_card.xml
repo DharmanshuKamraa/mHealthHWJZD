@@ -1,7 +1,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_height="wrap_content"
     android:layout_width="match_parent">
-
     <it.gmariotti.cardslib.library.view.CardViewNative
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:card="http://schemas.android.com/apk/res-auto"

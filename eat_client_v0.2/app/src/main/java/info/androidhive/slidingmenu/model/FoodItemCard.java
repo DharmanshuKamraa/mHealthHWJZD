@@ -16,8 +16,11 @@ import android.widget.Toast;
 import java.io.InputStream;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.HashMap;
+import java.util.Map;
 
 import info.androidhive.slidingmenu.R;
+import info.androidhive.slidingmenu.utils.ImageLoader;
 import it.gmariotti.cardslib.library.internal.Card;
 import it.gmariotti.cardslib.library.internal.CardExpand;
 import it.gmariotti.cardslib.library.internal.ViewToClickToExpand;
@@ -33,17 +36,19 @@ public class FoodItemCard extends Card {
     protected String mSeller;
     protected Long mId;
     protected Boolean mIsCarted;
-    protected Boolean mIsExpanded = false;
     protected String mImageUrl;
-    protected Bitmap mDrawableImage;
-    protected Boolean imageSet = false;
 
+    protected static HashMap<Long , Bitmap> imagesLoaded = new HashMap<Long , Bitmap>();
+    public static ImageLoader imageLoader;
     /**
      * Constructor with a custom inner layout
      * @param context
      */
     public FoodItemCard(Context context) {
         this(context, R.layout.food_item_card);
+        if (imageLoader == null) {
+            imageLoader = new ImageLoader(context);
+        }
     }
 
     public void setParams(Long id, String title , String seller , String price , int isCarted , String imageUrl) {
@@ -52,7 +57,6 @@ public class FoodItemCard extends Card {
         this.mSeller= seller;
         this.mPrice = price;
         this.mImageUrl = imageUrl;
-        Log.i("image_url" , mImageUrl);
 
         if (isCarted == 0) {
             this.mIsCarted = false;
@@ -110,14 +114,7 @@ public class FoodItemCard extends Card {
 
         ImageView imageView = (ImageView) parent.findViewById(R.id.card_thumbnail_image);
 
-        if (!imageSet) {
-            DownloadImageTask downloadImageTask = new DownloadImageTask(imageView);
-            downloadImageTask.execute(mImageUrl);
-            imageView.setImageResource(R.drawable.cart_red);
-        } else {
-            imageView.setImageBitmap(mDrawableImage);
-        }
-//
+        imageLoader.DisplayImage(mImageUrl.replaceAll(" ", "%20") , imageView);
 
         if (mIsCarted == true) {
             buttonView.setBackgroundResource(R.drawable.ok);
@@ -149,35 +146,4 @@ public class FoodItemCard extends Card {
 //        mRatingBar.setRating(4.7f);
 
     }
-
-    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
-        ImageView bmImage;
-
-        public DownloadImageTask(ImageView bmImage) {
-            this.bmImage = bmImage;
-        }
-
-        protected Bitmap doInBackground(String... urls) {
-            String urldisplay = urls[0];
-            Log.i("downloading" , urls[0]);
-
-            Bitmap mIcon11 = null;
-            try {
-                mIcon11 = BitmapFactory.decodeStream((InputStream) new URL(urls[0].replaceAll(" ", "%20")).getContent());
-            } catch (Exception e) {
-                Log.e("Error", e.getMessage());
-                e.printStackTrace();
-            }
-            return mIcon11;
-        }
-
-        protected void onPostExecute(Bitmap result) {
-            if (imageSet == false) {
-                bmImage.setImageBitmap(result);
-                imageSet = true;
-                mDrawableImage = result;
-            }
-        }
-    }
-
 }

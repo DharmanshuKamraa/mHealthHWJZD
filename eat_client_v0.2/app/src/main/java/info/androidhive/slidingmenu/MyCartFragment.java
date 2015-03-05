@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import info.androidhive.slidingmenu.api.FoodItemConnect;
 import info.androidhive.slidingmenu.interfaces.FoodItemAsyncResponse;
 import info.androidhive.slidingmenu.model.FoodItemCard;
+import info.androidhive.slidingmenu.utils.CustomCardExapander;
 import it.gmariotti.cardslib.library.internal.Card;
 import it.gmariotti.cardslib.library.internal.CardArrayAdapter;
 import it.gmariotti.cardslib.library.internal.CardHeader;
@@ -40,7 +41,7 @@ public class MyCartFragment extends Fragment implements FoodItemAsyncResponse {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate(R.layout.fragment_food_item, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_my_cart, container, false);
         setInitialAdapter();
         return rootView;
     }
@@ -79,6 +80,9 @@ public class MyCartFragment extends Fragment implements FoodItemAsyncResponse {
                         jsonObject.getInt("check_carted_by_user") ,
                         jsonObject.getString("image_url")
                 );
+
+                CustomCardExapander cardExpand = new CustomCardExapander(getActivity());
+                card.addCardExpand(cardExpand);
                 cards.add(card);
             }
 
@@ -86,24 +90,6 @@ public class MyCartFragment extends Fragment implements FoodItemAsyncResponse {
 
             CardListView listView = (CardListView) getActivity().findViewById(R.id.myCardList);
             listView.setAdapter(mCardArrayAdapter);
-
-            EditText search_view = (EditText) getActivity().findViewById(R.id.search_filter);
-            search_view.addTextChangedListener(new TextWatcher() {
-                @Override
-                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-                }
-
-                @Override
-                public void onTextChanged(CharSequence s, int start, int before, int count) {
-                    makeFilterCall(s.toString());
-                }
-
-                @Override
-                public void afterTextChanged(Editable s) {
-
-                }
-            });
         } catch (Exception e) {
             Log.i("ISSUE" , e.toString());
         }

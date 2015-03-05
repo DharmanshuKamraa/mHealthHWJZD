@@ -1,10 +1,158 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:card="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="info.androidhive.slidingmenu.MyCartFragment">
+    tools:context="info.androidhive.slidingmenu.FoodItemFragment">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+            <!--<Spinner-->
+            <!--android:id="@+id/explore_filter_type"-->
+            <!--android:layout_width="30dp"-->
+            <!--android:layout_height="40dp"-->
+            <!--android:layout_alignParentLeft="true"-->
+            <!--/>-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="5dp"
+                android:orientation="vertical"
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="PROGRESS"
+                    style="@style/customHeading"
+                    />
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:src="@drawable/rectangle"/>
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView android:layout_width="match_parent" android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+                <RelativeLayout
+                    android:layout_marginTop="10dp"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:id="@+id/linearLayout1">
 
+                    <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        app:backgroundPadding="4dp"
+                        android:id="@+id/progressBar1"
+                        app:backgroundRadius="15dp"
+                        app:backgroundColor="#3E3D3D"
+                        app:progressColor="#8441C9"
+                        app:progress="70"
+                        app:max="100"
+                        android:layout_marginTop="10dp"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/myTextProgress"
+                        android:layout_alignLeft="@id/progressBar1"
+                        android:layout_alignTop="@id/progressBar1"
+                        android:layout_alignRight="@id/progressBar1"
+                        android:layout_alignBottom="@id/progressBar1"
+                        android:background="@android:color/transparent"
+                        android:text="CARBS"
+                        android:fontFamily="Arial"
+                        android:textColor="#fff"
+                        android:gravity="center"/>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_marginTop="5dp"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    >
+
+                    <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        app:backgroundPadding="4dp"
+                        android:id="@+id/progressBar2"
+                        app:backgroundRadius="15dp"
+                        app:backgroundColor="#3E3D3D"
+                        app:progressColor="#F0B838"
+                        app:progress="100"
+                        app:max="100"
+                        android:layout_marginTop="10dp"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignLeft="@id/progressBar2"
+                        android:layout_alignTop="@id/progressBar2"
+                        android:layout_alignRight="@id/progressBar2"
+                        android:layout_alignBottom="@id/progressBar2"
+                        android:background="@android:color/transparent"
+                        android:text="PROTEINS"
+                        android:fontFamily="Arial"
+                        android:textColor="#fff"
+                        android:gravity="center"/>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_marginTop="5dp"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                >
+
+                    <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        app:backgroundPadding="4dp"
+                        android:id="@+id/progressBar3"
+                        app:backgroundRadius="15dp"
+                        app:backgroundColor="#3E3D3D"
+                        app:progressColor="#ABC81E"
+                        app:progress="20"
+                        app:max="100"
+                        android:layout_marginTop="10dp"
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:layout_alignLeft="@id/progressBar3"
+                        android:layout_alignTop="@id/progressBar3"
+                        android:layout_alignRight="@id/progressBar3"
+                        android:layout_alignBottom="@id/progressBar3"
+                        android:background="@android:color/transparent"
+                        android:text="GREENS"
+                        android:fontFamily="Arial"
+                        android:textColor="#fff"
+                        android:gravity="center"/>
+                </RelativeLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="CART ITEMS"
+                    style="@style/customHeading"
+                    android:layout_marginTop="30dp"
+                    />
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:src="@drawable/rectangle"/>
+
+
+            </LinearLayout>
+            <it.gmariotti.cardslib.library.view.CardListView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/myCardList"
+                card:list_card_layout_resourceID="@layout/food_item_list_card"
+            />
+        </LinearLayout>
 </FrameLayout>
