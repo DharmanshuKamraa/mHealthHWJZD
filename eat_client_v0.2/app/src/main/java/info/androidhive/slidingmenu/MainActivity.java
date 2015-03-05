@@ -98,10 +98,10 @@ public class MainActivity extends Activity {
 			public void onDrawerClosed(View view) {
 //				getActionBar().setTitle(mTitle);
                 super.onDrawerClosed(view);
-                getActionBar().show();
-                View decorView = getWindow().getDecorView();
-                int uiOptions = View.SYSTEM_UI_FLAG_VISIBLE;
-                decorView.setSystemUiVisibility(uiOptions);
+//                getActionBar().show();
+//                View decorView = getWindow().getDecorView();
+//                int uiOptions = View.SYSTEM_UI_FLAG_VISIBLE;
+//                decorView.setSystemUiVisibility(uiOptions);
                 shouldGoInvisible = false;
 
 				// calling onPrepareOptionsMenu() to show action bar icons
@@ -111,11 +111,11 @@ public class MainActivity extends Activity {
 			public void onDrawerOpened(View view) {
 //				getActionBar().setTitle(mDrawerTitle);
                 super.onDrawerOpened(view);
-                View decorView = getWindow().getDecorView();
-                int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
-                decorView.setSystemUiVisibility(uiOptions);
+//                View decorView = getWindow().getDecorView();
+//                int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
+//                decorView.setSystemUiVisibility(uiOptions);
                 shouldGoInvisible = true;
-                getActionBar().hide();
+//                getActionBar().hide();
 				// calling onPrepareOptionsMenu() to hide action bar icons
 				invalidateOptionsMenu();
 			}
