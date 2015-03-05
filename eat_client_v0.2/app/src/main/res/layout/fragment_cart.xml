@@ -15,7 +15,7 @@
         <ProgressBar
             style="@style/categoryBar"
             android:id="@+id/progressBar1"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:progress="23"
             android:progressDrawable="@drawable/progressbar7"
             android:indeterminate="false"/>
@@ -23,7 +23,7 @@
         <TextView
             style="@style/categoryName"
             android:text="Diary"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:id="@+id/textView1"
             android:textColor="#FFFFFF"
             android:layout_alignLeft="@id/progressBar1"
@@ -32,7 +32,7 @@
         <ProgressBar
             style="@style/categoryBar2"
             android:id="@+id/progressBar11"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:progress="85"
             android:progressDrawable="@drawable/progressbar2"
             android:indeterminate="false"
