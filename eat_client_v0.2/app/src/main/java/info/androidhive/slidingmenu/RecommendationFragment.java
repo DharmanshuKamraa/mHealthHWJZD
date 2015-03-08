@@ -77,7 +77,7 @@ public class RecommendationFragment extends Fragment implements FoodItemAsyncRes
         FoodItemConnect f = new FoodItemConnect();
         f.delegate = this;
         f.activity = getActivity();
-        f.execute("GET" , "items/" , "");
+        f.execute("GET" , "fetch_recommendations/" , "");
     }
 
     public void makeFilterCall(String q) {
@@ -85,9 +85,9 @@ public class RecommendationFragment extends Fragment implements FoodItemAsyncRes
         f.delegate = this;
         f.activity = getActivity();
         if (q.isEmpty()) {
-            f.execute("GET" , "items/" , "");
+            f.execute("GET" , "fetch_recommendations" , "");
         } else {
-            f.execute("GET" , "items/" , "q="+q);
+            f.execute("GET" , "fetch_recommendations" , "q="+q);
         }
 
     }

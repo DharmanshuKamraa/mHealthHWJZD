@@ -6,10 +6,16 @@ from rest_framework.response import Response
 
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth import authenticate
+from django.conf import settings
+
 from copy import copy
 from .serializers import *
 from .exceptions import *
 from .authentication import TokenAuthentication
+from .utils import lsqnonneg
+
+from numpy import array , identity
+
 # Create your views here.
 
 @api_view(['POST'])
@@ -118,9 +124,114 @@ def mark_item_carted(request , pk):
 	cart_item.save()
 	return Response()
 
+@api_view(['POST'])
+@permission_classes([permissions.IsAuthenticated])
+@authentication_classes([TokenAuthentication])
 def mark_item_uncarted(request , pk):
 	carts = Cart.objects.filter(user_id=request.user.id).order_by('-created')
 	if not len(carts) :
 		raise ApiInvalidArgumentException('No cart yet.')
 	CartItem.objects.filter(item_id=pk , cart_id = carts[0].id).delete()
 	return Response()
+
+@api_view(['GET'])
+@permission_classes([permissions.IsAuthenticated])
+@authentication_classes([TokenAuthentication])
+def fetch_recommendations(request):
+	import pprint
+	items = Item.objects.all().order_by('id')
+	# Create A 2*2 array
+	# row 1 :- carbs
+	# row 2 :- protein
+	# row 3 :- vitamins
+	# row 4 :- fats
+	A = [[0 for x in range(items.count())] for x in range(6)]
+	
+	row_index = 0
+	for row in A :
+		column_index=0
+		for item in items :
+			if row_index == 0 :
+				A[row_index][column_index] = float(item.carbs)
+			elif row_index == 1 :
+				A[row_index][column_index] = float(item.protein)
+			elif row_index==2 :
+				A[row_index][column_index] = float(item.vitamins)
+			elif row_index == 3:
+				A[row_index][column_index] = float(item.fats)
+			elif row_index == 4:
+				A[row_index][column_index] = float(item.price)
+			elif row_index == 5:
+				A[row_index][column_index] = 5
+			column_index +=1
+		row_index+=1
+		
+	# Define a plan.
+	# row 1 :- required carbs for the week
+	# row 2 :- required protein for the week
+	# row 3 :- required vits for the week
+	# row 4 :- required fats for the week
+	
+	d = [0 for x in range(6)]
+	
+	if (request.user.id == 1) :
+		plan = settings.WEIGHT_LOSS_PLAN
+	else :
+		plan = settings.WEIGHT_GAIN_PLAN
+	
+
+	d[0] = plan['carbs']
+	d[1] = plan['protein']
+	d[2] = plan['fats']
+	d[3] = plan['vitamins']
+	d[4] = 0
+	d[5] = 0
+
+	A = array(A)
+	d = array(d)
+	
+	print A
+	print d
+	[x, resnorm, residual] = lsqnonneg(A,d)
+	print x
+	index = 0
+	
+	recommended_item_ids = []
+	
+	for item in items :
+		if x[index] >= 0.5 :
+			recommended_item_ids.append(item.id)
+		index+=1
+	print recommended_item_ids
+	
+	recommended_items = Item.objects.filter(id__in=recommended_item_ids)
+	
+	serializer = ItemSerializer(recommended_items , many=True , context={'request' : request})
+	return Response(serializer.data)
+
+@api_view(['GET'])
+@permission_classes([permissions.IsAuthenticated])
+@authentication_classes([TokenAuthentication])
+def fetch_cart_progress(request):
+	if (request.user.id == 1) :
+		plan = settings.WEIGHT_LOSS_PLAN
+	else :
+		plan = settings.WEIGHT_GAIN_PLAN
+	
+	cart = Cart.objects.filter(user_id = request.user.id).order_by('-created')
+	cart_items = CartItem.objects.filter(cart_id=cart[0].id)
+	
+	completed = {
+		'carbs' : 0.0 ,
+		'protein' : 0.0 ,
+		'fats' : 0.0 ,
+		'vitamins' :0.0
+	}
+	
+	for cart_item in cart_items :
+		completed['carbs'] += ((float(cart_item.item.carbs)/plan['carbs'])*100)
+		completed['protein'] += (float(cart_item.item.protein)/plan['protein']*100)
+		completed['fats'] += (float(cart_item.item.fats)/plan['fats']*100)
+		completed['vitamins'] += (float(cart_item.item.vitamins)/plan['vitamins']*100)
+	
+	return Response(completed)

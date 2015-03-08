@@ -15,12 +15,16 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import info.androidhive.slidingmenu.api.CartProgressConnect;
 import info.androidhive.slidingmenu.api.FoodItemConnect;
+import info.androidhive.slidingmenu.interfaces.CartProgressAsyncResponse;
 import info.androidhive.slidingmenu.interfaces.FoodItemAsyncResponse;
 import info.androidhive.slidingmenu.model.FoodItemCard;
 import info.androidhive.slidingmenu.utils.CustomCardExapander;
@@ -39,7 +43,7 @@ import it.gmariotti.cardslib.library.view.CardListView;
  * create an instance of this fragment.
  */
 
-public class MyCartFragment extends Fragment implements FoodItemAsyncResponse {
+public class MyCartFragment extends Fragment implements FoodItemAsyncResponse , CartProgressAsyncResponse {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -66,6 +70,11 @@ public class MyCartFragment extends Fragment implements FoodItemAsyncResponse {
         f.delegate = this;
         f.activity = getActivity();
         f.execute("GET" , "items/" , "carted=1");
+
+        CartProgressConnect c = new CartProgressConnect();
+        c.delegate = this;
+        c.activity = getActivity();
+        c.execute("GET" , "fetch_cart_progress" , "");
     }
 
     public void makeFilterCall(String q) {
@@ -110,6 +119,29 @@ public class MyCartFragment extends Fragment implements FoodItemAsyncResponse {
         } catch (Exception e) {
             Log.i("ISSUE" , e.toString());
         }
+    }
+
+    public void processCartProgress(String s) {
+        Log.i("Results" , s);
+        try {
+            JSONObject progress = new JSONObject(s);
+
+            RoundCornerProgressBar progressCarbs = (RoundCornerProgressBar) getActivity().findViewById(R.id.progress_carbs);
+            progressCarbs.setProgress(progress.getLong("carbs"));
+
+            RoundCornerProgressBar progressProtein = (RoundCornerProgressBar) getActivity().findViewById(R.id.progress_proteins);
+            progressProtein.setProgress(progress.getLong("protein"));
+
+            RoundCornerProgressBar progressFats = (RoundCornerProgressBar) getActivity().findViewById(R.id.progress_fats);
+            progressFats.setProgress(progress.getLong("fats"));
+
+            RoundCornerProgressBar progressVitamins = (RoundCornerProgressBar) getActivity().findViewById(R.id.progress_vitamins);
+            progressVitamins .setProgress(progress.getLong("vitamins"));
+
+        } catch (Exception e) {
+            Log.i("INCORRECT_JSON" , e.toString());
+        }
+
     }
 
     public void processFailed(String s) {

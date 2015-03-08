@@ -78,15 +78,9 @@ class Item(TimeStampedModel):
 									blank = True ,
 									null = False
 									)
+	
 	def image_url(self):
 		return 'http://ec2-54-191-192-216.us-west-2.compute.amazonaws.com:8001/media/' + str(self.image)
-	
-	# calories = models.CharField('')
-	CATEGORIES = (
-				'VEGETABLE', 
-				'FRUIT',
-				'MEAT'
-				)
 	
 	vegetarian = models.BooleanField()
 	nuts = models.BooleanField()
@@ -94,13 +88,40 @@ class Item(TimeStampedModel):
 	gluten = models.BooleanField()
 	eggs = models.BooleanField()
 	
+	carbs = models.CharField('Carbs' ,
+								max_length = 255 ,
+								null = True ,
+								default = '27'
+							)
+							
+	protein = models.CharField('Protein' ,
+								max_length = 255 ,
+								null = True ,
+								default = '13'
+								)
+	fats = models.CharField('Fat' ,
+							max_length = 255 ,
+							null = True, 
+							default = '2'
+							)
+	
+	vitamins = models.CharField('Vitamins' ,
+								max_length = 255 ,
+								null = True ,
+								default = '10'
+								)
+	
 	def price_to_float(self):
 		return self
 	def __unicode__(self) :
 		return self.name
 	
-	def check_carted_by_user(self , user=False) :
-		return CartItem.objects.filter(item_id=self.id).count()
+	def check_carted(self , user=False) :
+		if not user :
+			return CartItem.objects.filter(item_id=self.id).count()
+		else :
+			cart_id = Cart.objects.filter(user_id = user.id).order_by('-created')
+			return CartItem.objects.filter(item_id=self.id , cart_id=cart_id[0].id).count()
 
 class AuthToken(models.Model):
 	user = models.ForeignKey(User)

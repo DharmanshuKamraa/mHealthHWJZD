@@ -1,5 +1,6 @@
 package info.androidhive.slidingmenu.model;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -20,6 +21,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import info.androidhive.slidingmenu.R;
+import info.androidhive.slidingmenu.api.ServerConnect;
 import info.androidhive.slidingmenu.utils.ImageLoader;
 import it.gmariotti.cardslib.library.internal.Card;
 import it.gmariotti.cardslib.library.internal.CardExpand;
@@ -37,6 +39,7 @@ public class FoodItemCard extends Card {
     protected Long mId;
     protected Boolean mIsCarted;
     protected String mImageUrl;
+    protected Context mContext;
 
     protected static HashMap<Long , Bitmap> imagesLoaded = new HashMap<Long , Bitmap>();
     public static ImageLoader imageLoader;
@@ -46,6 +49,8 @@ public class FoodItemCard extends Card {
      */
     public FoodItemCard(Context context) {
         this(context, R.layout.food_item_card);
+        mContext = context;
+
         if (imageLoader == null) {
             imageLoader = new ImageLoader(context);
         }
@@ -125,13 +130,18 @@ public class FoodItemCard extends Card {
         buttonView.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ServerConnect s= new ServerConnect();
+                s.activity = (Activity) mContext;
+
                 if (mIsCarted == false) {
                     v.setBackgroundResource(R.drawable.ok);
                     mIsCarted = true;
+                    s.execute("POST" , "mark_item_carted/" + mId , "");
                     Toast.makeText(getContext(), mTitle + "has been added to your cart.", Toast.LENGTH_SHORT).show();
                 } else {
                     v.setBackgroundResource(R.drawable.plus);
                     mIsCarted = false;
+                    s.execute("POST" , "mark_item_uncarted/" + mId , "");
                     Toast.makeText(getContext(), mTitle + "has been removed from your cart.", Toast.LENGTH_SHORT).show();
                 }
             }

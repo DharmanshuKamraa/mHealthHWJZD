@@ -235,7 +235,6 @@ LOGGING = {
 }
 ########## END LOGGING CONFIGURATION
 
-
 ########## WSGI CONFIGURATION
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#wsgi-application
 WSGI_APPLICATION = '%s.wsgi.application' % SITE_NAME
@@ -251,3 +250,18 @@ INSTALLED_APPS += (
 # Don't need to use South when setting up a test database.
 SOUTH_TESTS_MIGRATE = False
 ########## END SOUTH CONFIGURATION
+
+########### PLAN DETAILS #############
+WEIGHT_LOSS_PLAN = {
+	'carbs' : 180 ,
+	'protein' : 200 ,
+	'fats' : 50 ,
+	'vitamins' : 100
+}
+
+WEIGHT_GAIN_PLAN = {
+	'carbs' : 300 ,
+	'protein' : 50 ,
+	'fats' : 2 ,
+	'vitamins' : 200
+}

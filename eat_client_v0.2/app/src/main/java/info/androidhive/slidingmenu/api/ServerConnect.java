@@ -165,14 +165,18 @@ public class ServerConnect extends AsyncTask<String , Void, String>{
                 /*
                 * Output objects.
                 * */
-                if (jsonObj.has("object")) {
+                if (jsonObj.has("object") && delegate != null) {
                     delegate.processFinished(jsonObj.getString("object"));
                 } else {
                     delegate.processFinished(jsonObj.getString("objects"));
                 }
             }
         } catch (Exception e) {
-            delegate.processFailed("Incorrect String");
+            if (delegate != null) {
+                delegate.processFailed("Incorrect String");
+            } else {
+                Log.i("API_CALL_ERROR" , e.toString());
+            }
         }
 //        Log.i("onPostExecute" , result);
 

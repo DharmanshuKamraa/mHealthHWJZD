@@ -10,6 +10,8 @@ urlpatterns = patterns('',
 				url(r'^fetch_history_params' , views.fetch_history_params),
 				url(r'^mark_item_carted/(?P<pk>[0-9]+)$' , views.mark_item_carted) ,
 				url(r'^mark_item_uncarted/(?P<pk>[0-9]+)$' , views.mark_item_uncarted) ,
+				url(r'^fetch_recommendations' , views.fetch_recommendations) ,
+				url('^fetch_cart_progress' , views.fetch_cart_progress)
 				)
 router = routers.DefaultRouter()
 urlpatterns += router.urls
