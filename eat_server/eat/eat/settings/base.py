@@ -253,15 +253,15 @@ SOUTH_TESTS_MIGRATE = False
 
 ########### PLAN DETAILS #############
 WEIGHT_LOSS_PLAN = {
-	'carbs' : 180 ,
-	'protein' : 200 ,
+	'carbs' : 87 ,
+	'protein' : 400 ,
 	'fats' : 50 ,
 	'vitamins' : 100
 }
 
 WEIGHT_GAIN_PLAN = {
-	'carbs' : 300 ,
-	'protein' : 50 ,
-	'fats' : 2 ,
-	'vitamins' : 200
+	'carbs' : 2200 ,
+	'protein' : 350 ,
+	'fats' : 455 ,
+	'vitamins' : 700
 }

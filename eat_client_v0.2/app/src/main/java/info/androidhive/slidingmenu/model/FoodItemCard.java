@@ -1,6 +1,7 @@
 package info.androidhive.slidingmenu.model;
 
 import android.app.Activity;
+import android.app.Fragment;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -22,6 +23,8 @@ import java.util.Map;
 
 import info.androidhive.slidingmenu.R;
 import info.androidhive.slidingmenu.api.ServerConnect;
+import info.androidhive.slidingmenu.interfaces.ApiAsyncResponse;
+import info.androidhive.slidingmenu.interfaces.ItemInitializerFragment;
 import info.androidhive.slidingmenu.utils.ImageLoader;
 import it.gmariotti.cardslib.library.internal.Card;
 import it.gmariotti.cardslib.library.internal.CardExpand;
@@ -31,7 +34,7 @@ import it.gmariotti.cardslib.library.internal.ViewToClickToExpand;
 /**
  * Created by Dharmanshu on 3/3/15.
  */
-public class FoodItemCard extends Card {
+public class FoodItemCard extends Card implements ApiAsyncResponse {
 
     protected String mTitle;
     protected String mPrice;
@@ -40,6 +43,8 @@ public class FoodItemCard extends Card {
     protected Boolean mIsCarted;
     protected String mImageUrl;
     protected Context mContext;
+
+    protected ItemInitializerFragment initializerDelegate = null;
 
     protected static HashMap<Long , Bitmap> imagesLoaded = new HashMap<Long , Bitmap>();
     public static ImageLoader imageLoader;
@@ -54,6 +59,10 @@ public class FoodItemCard extends Card {
         if (imageLoader == null) {
             imageLoader = new ImageLoader(context);
         }
+    }
+
+    public void setInitializerDelegate(ItemInitializerFragment f) {
+        initializerDelegate = f;
     }
 
     public void setParams(Long id, String title , String seller , String price , int isCarted , String imageUrl) {
@@ -97,7 +106,7 @@ public class FoodItemCard extends Card {
     }
 
     @Override
-    public void setupInnerViewElements(ViewGroup parent, View view) {
+    public void setupInnerViewElements(final ViewGroup parent, View view) {
 
         ViewToClickToExpand viewToClickToExpand = ViewToClickToExpand.builder().setupView(view);
         this.setViewToClickToExpand(viewToClickToExpand);
@@ -132,8 +141,10 @@ public class FoodItemCard extends Card {
             public void onClick(View v) {
                 ServerConnect s= new ServerConnect();
                 s.activity = (Activity) mContext;
+                s.delegate = FoodItemCard.this;
 
                 if (mIsCarted == false) {
+
                     v.setBackgroundResource(R.drawable.ok);
                     mIsCarted = true;
                     s.execute("POST" , "mark_item_carted/" + mId , "");
@@ -156,4 +167,13 @@ public class FoodItemCard extends Card {
 //        mRatingBar.setRating(4.7f);
 
     }
+    public void processFinished(String s) {
+        if (initializerDelegate != null) {
+            initializerDelegate.refresh();
+        }
+    }
+
+    public void processFailed(String s) {
+
+    };
 }

@@ -54,7 +54,8 @@ public class HistoryFragment extends Fragment implements ApiAsyncResponse {
     private boolean hasLabels = false;
     private boolean isCubic = false;
     private boolean hasLabelForSelected = false;
-    public static final int COLOR_VIOLET = Color.parseColor("#AA66CC");
+    public static final int COLOR_VIOLET = Color.parseColor("#426E87");
+
 
     float[][] randomNumbersTab = new float[maxNumberOfLines][numberOfPoints];
     private PieChartView piechart;
@@ -76,21 +77,14 @@ public class HistoryFragment extends Fragment implements ApiAsyncResponse {
         chart = (ColumnChartView) rootView.findViewById(R.id.chart);
         chart.setOnValueTouchListener(new ValueTouchListener());
 
-        generateDefaultData();
-
-
-
         linechart = (LineChartView) rootView.findViewById(R.id.linechart);
         linechart.setOnValueTouchListener(new LineChartValueTouchListener());
         // Generate some random values.
-        generateValuesforLine();
-        generateDataforLine();
+
 
         piechart = (PieChartView) rootView.findViewById(R.id.piechart);
         piechart.setOnValueTouchListener(new PieChartValueTouchListener());
         piechart.setCircleFillRatio(1.0f);
-
-        generateDataforPie();
 
         fetchHistoryParams();
 
@@ -109,11 +103,11 @@ public class HistoryFragment extends Fragment implements ApiAsyncResponse {
         s.execute("GET" ,"fetch_history_params" , "");
     }
 
-    private void generateDefaultData() {
+    private void generateDefaultData(int average_cart_completed) {
         int numSubcolumns = 1;
-        int numColumns = 12;
-        String[] months = {"Jan", "Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"};
-        int[] completionValues = {70,74,85,89,95,100,92,84,79,83,92,97};
+        int numColumns = 6;
+        String[] months = {"Oct","Nov","Dec","Jan", "Feb","Mar"};
+        int[] completionValues = {92,84,79,83,92,average_cart_completed};
         // Column can have many subcolumns, here by default I use 1 subcolumn in each of 8 columns.
         List<Column> columns = new ArrayList<Column>();
         List<SubcolumnValue> values;
@@ -158,7 +152,7 @@ public class HistoryFragment extends Fragment implements ApiAsyncResponse {
     private void generateValuesforLine() {
         for (int i = 0; i < maxNumberOfLines; ++i) {
             for (int j = 0; j < numberOfPoints; ++j) {
-                randomNumbersTab[i][j] = (float) Math.random() * 100f;
+                randomNumbersTab[i][j] = (float) Math.random() * 1000f;
             }
         }
     }
@@ -167,8 +161,8 @@ public class HistoryFragment extends Fragment implements ApiAsyncResponse {
         // Reset viewport height range to (0,100)
         final Viewport v = new Viewport(linechart.getMaximumViewport());
         v.bottom = 0;
-        v.top = 100;
-        v.left = 0;
+        v.top = 1000;
+        v.left = 1;
         v.right = numberOfPoints -1;
         linechart.setMaximumViewport(v);
         linechart.setCurrentViewport(v);
@@ -189,14 +183,29 @@ public class HistoryFragment extends Fragment implements ApiAsyncResponse {
 
     }
 
-    private void generateDataforLine() {
+    private void generateDataforLine(int carbs , int protein , int fats , int vitamins ) {
 
         List<Line> lines = new ArrayList<Line>();
         for (int i = 0; i < numberOfLines; ++i) {
 
             List<PointValue> values = new ArrayList<PointValue>();
             for (int j = 0; j < numberOfPoints; ++j) {
-                values.add(new PointValue(j, randomNumbersTab[i][j]));
+                if (j == (numberOfPoints-1) && (i==0)) {
+                    values.add(new PointValue(j , carbs));
+                }
+
+                else if (j == (numberOfPoints-1) && (i==1)) {
+                    values.add(new PointValue(j , protein));
+                }
+
+                else if (j == (numberOfPoints-1) && (i==1)) {
+                    values.add(new PointValue(j , fats));
+                }
+                else if (j == (numberOfPoints-1) && (i==1)) {
+                    values.add(new PointValue( j , vitamins));
+                } else  {
+                    values.add(new PointValue(j , randomNumbersTab[i][j]));
+                }
             }
 
             Line line = new Line(values);
@@ -220,7 +229,7 @@ public class HistoryFragment extends Fragment implements ApiAsyncResponse {
             Axis axisY = new Axis().setHasLines(true);
             if (hasAxesNames) {
                 axisX.setName("Carts");
-                axisY.setName("Percentage Completed");
+                axisY.setName("Value in grams");
             }
             linedata.setAxisXBottom(axisX);
             linedata.setAxisYLeft(axisY);
@@ -233,14 +242,32 @@ public class HistoryFragment extends Fragment implements ApiAsyncResponse {
         linechart.setLineChartData(linedata);
     }
 
-    private void generateDataforPie() {
+    private void generateDataforPie(int carbs , int protein , int fats , int vitamins) {
         int numValues = 5;
 
         List<SliceValue> values = new ArrayList<SliceValue>();
-        for (int i = 0; i < numValues; ++i) {
-            SliceValue sliceValue = new SliceValue((float) Math.random() * 30 + 15, ChartUtils.pickColor());
-            values.add(sliceValue);
-        }
+
+        SliceValue sliceValueCarbs = new SliceValue(carbs, Color.parseColor("#996bCA"));
+        sliceValueCarbs.setLabel("Carbs".toCharArray());
+        values.add(sliceValueCarbs);
+
+        SliceValue sliceValueProtein = new SliceValue(protein, Color.parseColor("#F0B838"));
+        sliceValueProtein.setLabel("Protein".toCharArray());
+        values.add(sliceValueProtein);
+
+        SliceValue sliceValueFats = new SliceValue(fats, Color.parseColor("#E04843"));
+        sliceValueFats.setLabel("Fats".toCharArray());
+        values.add(sliceValueFats);
+
+        SliceValue sliceValueVitamins = new SliceValue(vitamins, Color.parseColor("#ABC81E"));
+        sliceValueVitamins.setLabel("Vits".toCharArray());
+
+        values.add(sliceValueVitamins);
+
+//        for (int i = 0; i < numValues; ++i) {
+//            SliceValue sliceValue = new SliceValue((float) Math.random() * 30 + 15, ChartUtils.pickColor());
+//            values.add(sliceValue);
+//        }
 
         piedata = new PieChartData(values);
         piedata.setHasLabels(true);
@@ -282,7 +309,7 @@ public class HistoryFragment extends Fragment implements ApiAsyncResponse {
 
         @Override
         public void onValueSelected(int arcIndex, SliceValue value) {
-            Toast.makeText(getActivity(), "Selected: " + value, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), value.toString(), Toast.LENGTH_SHORT).show();
         }
 
         @Override
@@ -305,10 +332,32 @@ public class HistoryFragment extends Fragment implements ApiAsyncResponse {
 
             TextView total_money_saved = (TextView) getActivity().findViewById(R.id.total_money_saved);
             total_money_saved.setText(jsonOutput.getString("total_money_saved"));
-        } catch (Exception e) {
 
+            generateDefaultData(jsonOutput.getInt("average_cart_completed"));
+            JSONObject nutrients_in_cart = jsonOutput.getJSONObject("nurtients_in_cart");
+            generateDataforPie(
+                    nutrients_in_cart.getInt("carbs") ,
+                    nutrients_in_cart.getInt("protein") ,
+                    nutrients_in_cart.getInt("fats"),
+                    nutrients_in_cart.getInt("vitamins")
+            );
+
+            JSONObject nutrients_in_grams = jsonOutput.getJSONObject("nutrients_in_gram");
+
+            generateValuesforLine();
+
+            generateDataforLine(
+                    nutrients_in_grams.getInt("carbs") ,
+                    nutrients_in_grams.getInt("protein") ,
+                    nutrients_in_grams.getInt("fats") ,
+                    nutrients_in_grams.getInt("vitamins")
+            );
+
+        } catch (Exception e) {
+            Log.i("Error Converting" , e.toString());
         }
     }
+
     public void processFailed(String s) {
         Log.i("PROCESS FAILED" , s);
     }

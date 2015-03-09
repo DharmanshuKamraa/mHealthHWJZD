@@ -109,7 +109,12 @@ public class RecommendationFragment extends Fragment implements FoodItemAsyncRes
                         jsonObject.getString("image_url")
                 );
 
-                CustomCardExapander cardExpand = new CustomCardExapander(getActivity());
+                CustomCardExapander cardExpand = new CustomCardExapander(getActivity() ,
+                        jsonObject.getString("carbs"),
+                        jsonObject.getString("protein"),
+                        jsonObject.getString("fats"),
+                        jsonObject.getString("vitamins")
+                );
 
                 card.addCardExpand(cardExpand);
 

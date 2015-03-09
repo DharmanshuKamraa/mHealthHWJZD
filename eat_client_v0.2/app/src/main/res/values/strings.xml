@@ -15,7 +15,7 @@
         <!--<item>discount</item>-->
         <item>Recommendation</item>
         <item>Profile</item>
-        <!--<item>Check</item>-->
+        <item>Logout</item>
     </string-array>
 
     <!-- Nav Drawer List Item Icons -->
@@ -27,7 +27,7 @@
         <!--<item>@drawable/ic_whats_hot</item>-->
         <item>@drawable/ic_suggest</item>
         <item>@drawable/ic_profile</item>
-        <!--<item>@drawable/ic_whats_hot</item>-->
+        <item>@drawable/ic_whats_hot</item>
     </array>
 
     <string-array name="food_type">

@@ -121,7 +121,12 @@ public class FoodItemFragment extends Fragment implements FoodItemAsyncResponse 
                             jsonObject.getString("image_url")
                 );
 
-                CustomCardExapander cardExpand = new CustomCardExapander(getActivity());
+                CustomCardExapander cardExpand = new CustomCardExapander(getActivity() ,
+                                                                        jsonObject.getString("carbs"),
+                                                                        jsonObject.getString("protein"),
+                                                                        jsonObject.getString("fats"),
+                                                                        jsonObject.getString("vitamins")
+                );
 
                 card.addCardExpand(cardExpand);
 

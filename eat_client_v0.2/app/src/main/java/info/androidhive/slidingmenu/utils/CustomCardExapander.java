@@ -12,9 +12,21 @@ import it.gmariotti.cardslib.library.internal.CardExpand;
  * Created by Dharmanshu on 3/4/15.
  */
 public class CustomCardExapander extends CardExpand {
+    protected String mCarbs = "200g";
+    protected String mProtein = "150g";
+    protected String mFats = "140g";
+    protected String mViatmins  = "120g";
 
     public CustomCardExapander (Context context) {
         super(context, R.layout.custom_inner_base_expand);
+    }
+
+    public CustomCardExapander(Context context , String carbs , String protein , String fats , String vitamins) {
+        super(context, R.layout.custom_inner_base_expand);
+        mCarbs = carbs + "g";
+        mProtein = protein + "g";
+        mFats = fats + "g";
+        mViatmins = vitamins + "g";
     }
 
     public void setupInnerViewElements(ViewGroup parent, View view) {
@@ -22,10 +34,18 @@ public class CustomCardExapander extends CardExpand {
         if (view == null) return;
 
         //Retrieve TextView elements
-//        TextView tx1 = (TextView) view.findViewById(R.id.carddemo_expand_text1);
-//        TextView tx2 = (TextView) view.findViewById(R.id.carddemo_expand_text2);
-//        TextView tx3 = (TextView) view.findViewById(R.id.carddemo_expand_text3);
-//        TextView tx4 = (TextView) view.findViewById(R.id.carddemo_expand_text4);
+        TextView tx1 = (TextView) view.findViewById(R.id.card_expand_inner_carbs);
+        tx1.setText("CARBOHYDRATES : " + mCarbs);
+
+        TextView tx2 = (TextView) view.findViewById(R.id.card_expand_inner_proteins);
+        tx2.setText("PROTEINS : " + mProtein);
+
+
+        TextView tx3 = (TextView) view.findViewById(R.id.card_expand_inner_fats);
+        tx3.setText("FATS : " + mFats);
+
+        TextView tx4 = (TextView) view.findViewById(R.id.card_expand_inner_vitamins);
+        tx4.setText("VITAMINS : " + mViatmins);
 //
 //        //Set value in text views
 //        if (tx1 != null) {

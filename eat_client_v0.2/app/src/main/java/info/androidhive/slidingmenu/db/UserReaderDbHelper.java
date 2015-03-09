@@ -25,4 +25,8 @@ public class UserReaderDbHelper extends SQLiteOpenHelper {
     public void onDowngrade(SQLiteDatabase db , int oldVersion , int newVersion) {
         onUpgrade(db , oldVersion , newVersion);
     }
+
+    public void deleteEntries(SQLiteDatabase db) {
+        db.execSQL(UserContract.UserEntry.getSqlDeleteData());
+    }
 }

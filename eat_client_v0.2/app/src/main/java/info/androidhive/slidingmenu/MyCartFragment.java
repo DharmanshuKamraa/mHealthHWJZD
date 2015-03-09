@@ -26,6 +26,7 @@ import info.androidhive.slidingmenu.api.CartProgressConnect;
 import info.androidhive.slidingmenu.api.FoodItemConnect;
 import info.androidhive.slidingmenu.interfaces.CartProgressAsyncResponse;
 import info.androidhive.slidingmenu.interfaces.FoodItemAsyncResponse;
+import info.androidhive.slidingmenu.interfaces.ItemInitializerFragment;
 import info.androidhive.slidingmenu.model.FoodItemCard;
 import info.androidhive.slidingmenu.utils.CustomCardExapander;
 import it.gmariotti.cardslib.library.internal.Card;
@@ -43,7 +44,7 @@ import it.gmariotti.cardslib.library.view.CardListView;
  * create an instance of this fragment.
  */
 
-public class MyCartFragment extends Fragment implements FoodItemAsyncResponse , CartProgressAsyncResponse {
+public class MyCartFragment extends Fragment implements FoodItemAsyncResponse , CartProgressAsyncResponse , ItemInitializerFragment{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -70,17 +71,21 @@ public class MyCartFragment extends Fragment implements FoodItemAsyncResponse , 
         f.delegate = this;
         f.activity = getActivity();
         f.execute("GET" , "items/" , "carted=1");
+        setCartProgress();
+    }
 
+    public void setCartProgress() {
         CartProgressConnect c = new CartProgressConnect();
         c.delegate = this;
         c.activity = getActivity();
         c.execute("GET" , "fetch_cart_progress" , "");
-    }
 
+    }
     public void makeFilterCall(String q) {
         FoodItemConnect f = new FoodItemConnect();
         f.delegate = this;
         f.activity = getActivity();
+
         if (q.isEmpty()) {
             f.execute("GET" , "items/" , "carted=1");
         } else {
@@ -107,8 +112,14 @@ public class MyCartFragment extends Fragment implements FoodItemAsyncResponse , 
                         jsonObject.getString("image_url")
                 );
 
-                CustomCardExapander cardExpand = new CustomCardExapander(getActivity());
+                CustomCardExapander cardExpand = new CustomCardExapander(getActivity() ,
+                        jsonObject.getString("carbs"),
+                        jsonObject.getString("protein"),
+                        jsonObject.getString("fats"),
+                        jsonObject.getString("vitamins")
+                );
                 card.addCardExpand(cardExpand);
+                card.setInitializerDelegate(this);
                 cards.add(card);
             }
 
@@ -141,11 +152,13 @@ public class MyCartFragment extends Fragment implements FoodItemAsyncResponse , 
         } catch (Exception e) {
             Log.i("INCORRECT_JSON" , e.toString());
         }
-
     }
 
     public void processFailed(String s) {
 
     }
 
+    public void refresh() {
+        setCartProgress();
+    }
 }

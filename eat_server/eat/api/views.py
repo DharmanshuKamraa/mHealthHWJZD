@@ -14,7 +14,7 @@ from .exceptions import *
 from .authentication import TokenAuthentication
 from .utils import lsqnonneg
 
-from numpy import array , identity
+from numpy import array , identity , concatenate , zeros , ones , empty
 
 # Create your views here.
 
@@ -84,31 +84,13 @@ def fetch_items(request):
 	if filters.get('q') :
 		items = items.filter(name__istartswith=filters.get('q'))
 	if filters.get('carted') :
-		item_ids = CartItem.objects.all().values_list('item_id' , flat = True)
+		cart = Cart.objects.filter(user_id = request.user.id).order_by('-created')
+		
+		item_ids = CartItem.objects.filter(cart_id=cart[0].id).values_list('item_id' , flat = True)
 		items = items.filter(id__in=item_ids)
-	
+
 	serializer = ItemSerializer(items , many=True , context={'request' : request})
 	return Response(serializer.data)
-
-@api_view(['GET'])
-@permission_classes([permissions.IsAuthenticated])
-@authentication_classes([TokenAuthentication])
-def fetch_history_params(request):
-	cart_ids = Cart.objects.filter(user_id = request.user.id).values_list('id' , flat=True)
-	items_carted = CartItem.objects.filter(cart_id__in =cart_ids)
-	total_items_carted_by_user = len(items_carted)
-
-	total_carts_created = len(cart_ids)
-	
-	total_money_saved = 0
-	for cart_item in items_carted :
-		total_money_saved += int(cart_item.item.price)
-	
-	return Response({
-		"total_items_carted_by_user" : total_items_carted_by_user ,
-		"total_money_saved" : total_money_saved ,
-		"total_carts_created" : total_carts_created
-	})
 
 @api_view(['POST'])
 @permission_classes([permissions.IsAuthenticated])
@@ -132,6 +114,7 @@ def mark_item_uncarted(request , pk):
 	if not len(carts) :
 		raise ApiInvalidArgumentException('No cart yet.')
 	CartItem.objects.filter(item_id=pk , cart_id = carts[0].id).delete()
+	
 	return Response()
 
 @api_view(['GET'])
@@ -145,7 +128,8 @@ def fetch_recommendations(request):
 	# row 2 :- protein
 	# row 3 :- vitamins
 	# row 4 :- fats
-	A = [[0 for x in range(items.count())] for x in range(6)]
+	print items
+	A = [[0 for x in range(items.count())] for x in range(5)]
 	
 	row_index = 0
 	for row in A :
@@ -161,8 +145,6 @@ def fetch_recommendations(request):
 				A[row_index][column_index] = float(item.fats)
 			elif row_index == 4:
 				A[row_index][column_index] = float(item.price)
-			elif row_index == 5:
-				A[row_index][column_index] = 5
 			column_index +=1
 		row_index+=1
 		
@@ -172,42 +154,54 @@ def fetch_recommendations(request):
 	# row 3 :- required vits for the week
 	# row 4 :- required fats for the week
 	
-	d = [0 for x in range(6)]
+	d = [0 for x in range(5)]
 	
 	if (request.user.id == 1) :
 		plan = settings.WEIGHT_LOSS_PLAN
 	else :
 		plan = settings.WEIGHT_GAIN_PLAN
 	
-
 	d[0] = plan['carbs']
 	d[1] = plan['protein']
 	d[2] = plan['fats']
 	d[3] = plan['vitamins']
-	d[4] = 0
-	d[5] = 0
-
+	d[4] = 0 # cost
+	
+	z = empty(items.count())
+	z.fill(100)
+	d = concatenate((d,z) , axis = 0)
+	
 	A = array(A)
-	d = array(d)
+	identity_array = identity(items.count())*100
+	# for row in identity_array :
+	# 	A.app
+	# print A
+	# print identity_array
+	A = concatenate((A , identity_array) , axis=0)
 	
+	print "\n Input Matrix : \n"
 	print A
+	
+	print "\n Required Output : \n "
 	print d
+
+	# d = array(d)
 	[x, resnorm, residual] = lsqnonneg(A,d)
+	#
+	print "\n Solution Vector \n"
 	print x
+	#
 	index = 0
-	
 	recommended_item_ids = []
-	
 	for item in items :
 		if x[index] >= 0.5 :
 			recommended_item_ids.append(item.id)
 		index+=1
-	print recommended_item_ids
-	
+	#
 	recommended_items = Item.objects.filter(id__in=recommended_item_ids)
-	
 	serializer = ItemSerializer(recommended_items , many=True , context={'request' : request})
 	return Response(serializer.data)
+	return Response()
 
 @api_view(['GET'])
 @permission_classes([permissions.IsAuthenticated])
@@ -235,3 +229,61 @@ def fetch_cart_progress(request):
 		completed['vitamins'] += (float(cart_item.item.vitamins)/plan['vitamins']*100)
 	
 	return Response(completed)
+
+@api_view(['GET'])
+@permission_classes([permissions.IsAuthenticated])
+@authentication_classes([TokenAuthentication])
+def fetch_history_params(request):
+	cart_ids = Cart.objects.filter(user_id = request.user.id).values_list('id' , flat=True)
+	items_carted = CartItem.objects.filter(cart_id__in =cart_ids)
+	total_items_carted_by_user = len(items_carted)
+
+	total_carts_created = len(cart_ids)
+	
+	total_money_saved = 0
+	for cart_item in items_carted :
+		total_money_saved += float(cart_item.item.price)
+	if (request.user.id == 1) :
+		plan = settings.WEIGHT_LOSS_PLAN
+	else :
+		plan = settings.WEIGHT_GAIN_PLAN
+	total_money_saved = round(total_money_saved , 2)
+	
+	# Fetch average nutrient intake per cart
+	carts = Cart.objects.filter(user_id = request.user.id).values_list('id' , flat=True)
+	cart = carts[0]
+	
+	completed = {
+		'carbs' : 0.0 ,
+		'protein' : 0.0 ,
+		'fats' : 0.0 ,
+		'vitamins' :0.0
+	}
+	completed_in_grams = {
+		'carbs' : 0.0 ,
+		'protein' : 0.0 ,
+		'fats' : 0.0 ,
+		'vitamins' :0.0
+	}
+	
+	for cart_item in items_carted :
+		completed['carbs'] += round((float(cart_item.item.carbs)/plan['carbs'])*100 , 2)
+		completed['protein'] += round(float(cart_item.item.protein)/plan['protein']*100 , 2)
+		completed['fats'] += round(float(cart_item.item.fats)/plan['fats']*100 , 2)
+		completed['vitamins'] += round(float(cart_item.item.vitamins)/plan['vitamins']*100 ,2)
+	
+	for cart_item in items_carted :
+		completed_in_grams['carbs'] += float(cart_item.item.carbs)
+		completed_in_grams['protein'] += float(cart_item.item.protein)
+		completed_in_grams['fats'] += float(cart_item.item.fats)
+		completed_in_grams['vitamins'] += float(cart_item.item.vitamins)
+	
+	average_cart_completed = round((completed['carbs'] + completed['protein'] + completed['fats'] + completed['vitamins'])/4 ,2)
+	return Response({
+		"total_items_carted_by_user" : total_items_carted_by_user ,
+		"total_money_saved" : total_money_saved ,
+		"total_carts_created" : total_carts_created ,
+		"average_cart_completed" : int(average_cart_completed),
+		"nurtients_in_cart" : completed ,
+		"nutrients_in_gram" : completed_in_grams
+	})

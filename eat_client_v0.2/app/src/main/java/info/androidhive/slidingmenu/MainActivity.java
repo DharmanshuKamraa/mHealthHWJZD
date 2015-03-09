@@ -3,6 +3,7 @@ package info.androidhive.slidingmenu;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.os.Bundle;
@@ -71,6 +72,7 @@ public class MainActivity extends Activity {
 		navDrawerItems.add(new NavDrawerItem(navMenuTitles[3], navMenuIcons.getResourceId(3, -1)));
 		// What's hot, We  will add a counter here
 		navDrawerItems.add(new NavDrawerItem(navMenuTitles[4] , navMenuIcons.getResourceId(4,-1)));
+        navDrawerItems.add(new NavDrawerItem(navMenuTitles[5] , navMenuIcons.getResourceId(5,-1)));
 
 		// Recycle the typed array
 		navMenuIcons.recycle();
@@ -233,6 +235,10 @@ public class MainActivity extends Activity {
 		case 4:
 			fragment = new ProfileFragment();
 			break;
+        case 5 :
+            Intent intent = new Intent(this , LoginActivity.class);
+            startActivity(intent);
+            break;
 
 		default:
 			break;

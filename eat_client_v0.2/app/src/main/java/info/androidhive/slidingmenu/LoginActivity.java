@@ -151,6 +151,9 @@ public class LoginActivity extends Activity implements LoginAsyncResponse{
 
     private void saveLoggedInUser(JSONObject user_object) {
         try {
+            /* Delete previously existing token. */
+            writable_db.execSQL(UserContract.UserEntry.getSqlDeleteData());
+
             /* Save token in memory rather than database. Maybe add whole user in memory.*/
 
             ((SmartCartApplication) getApplication()).setUserToken(user_object.get("auth_token").toString());
@@ -162,6 +165,7 @@ public class LoginActivity extends Activity implements LoginAsyncResponse{
             values.put(UserContract.UserEntry.COLUMN_NAME_TOKEN, user_object.get("auth_token").toString());
             values.put(UserContract.UserEntry.COLUMN_NAME_USERNAME , user_object.getString("username"));
             long newRowId = writable_db.insert(UserContract.UserEntry.TABLE_NAME , null, values);
+
 
             Log.i("App Token" , ((SmartCartApplication) getApplication()).getUserToken());
         } catch (Exception e) {

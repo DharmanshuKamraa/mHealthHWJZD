@@ -1,6 +1,7 @@
 package info.androidhive.slidingmenu.db;
 
 import android.provider.BaseColumns;
+import android.util.Log;
 
 /**
  * Created by Dharmanshu on 2/24/15.
@@ -23,12 +24,17 @@ public final  class UserContract {
                         ")";
 
         private static final String SQL_DELETE_ENTRIES = "DROP TABLE IF EXISTS " + UserEntry.TABLE_NAME;
+        private static final String SQL_DELETE_DATA = "DELETE FROM " + UserEntry.TABLE_NAME;
 
         public static String getSqlCreateEntries() {
             return SQL_CREATE_ENTRIES;
         }
         public static String getSqlDeleteEntries() {
             return SQL_DELETE_ENTRIES;
+        }
+        public static String getSqlDeleteData() {
+            Log.i("DELETE QUERY" , SQL_DELETE_DATA);
+            return SQL_DELETE_DATA;
         }
     }
 
